@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+header {
+  background-color:LightGray;
+  padding: 20px;
+  text-align: center;
+  font-size: 25px;
+  color: black;
+}
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+.button {      
+    background-color: #1c87c9;
+    font-family: arial, sans-serif;
+    border: none;     
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+</style>
+</head>
+
+<body>
+    <header>
+        <h3>Visiting info of {{ patient.last_name }} {{ patient.first_name }}</h3>
+    </header>
+<table style="width:95%">
+    <tr>
+      <th>Location</th>
+      <th>Address</th>
+      <th>X Coordinate</th>
+      <th>Y Coordinate</th>
+      <th>District</th>
+      <th>Date from</th>
+      <th>Date to</th>
+      <th>Detail</th>
+      <th>Category</th>
+    </tr>
+    {% for visit in visit_list %}
+    <tr>
+      <td>{{visit.location.location_name}}</td>
+      <td>{{visit.location.address}}</td>
+      <td>{{visit.location.x_coord}}</td>
+      <td>{{visit.location.y_coord}}</td>
+      <td>{{visit.location.district_name}}</td>
+      <td>{{visit.date_from}}</td>
+      <td>{{visit.date_to}}</td>
+      <td>{{visit.detail}}</td>
+      <td>{{visit.category_name}}</td>
+    {% empty %}
+      <td colspan="9">No visiting information available.</td>
+    </tr>
+    {% endfor %}
+</table>
+<a href="{% url 'patients'%}" class = "button"> Go back</a>
+</body>
+</html>

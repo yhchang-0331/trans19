@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+header {
+  background-color:LightGray;
+  padding: 20px;
+  text-align: center;
+  font-size: 25px;
+  color: black;
+}
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+/*.header img {
+  float: left;
+  width: 100px;
+  height: 100px;
+}
+
+.header h1 {
+  position: relative;
+  top: 18px;
+  left: 10px;
+  background-color:LightGray;
+}*/
+
+.button {      
+    background-color: #1c87c9;
+    border: none;     
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+/*<div class="header">
+    <h1>Transmission Tracking System</h1>
+</div>*/
+
+</style>
+</head>
+
+<body>
+    <header>
+        <h3>Patient Corner</h3>
+    </header>
+    <section>
+        <table style="width:61%">
+        <tr>
+            <th>Case Id</th>
+            <th>Last name</th>
+            <th>First name</th>
+            <th>Identity document number</th>
+            <th>Date of birth</th>
+            <th>Confirmed date</th>
+            <th>Visiting information</th>
+        </tr>
+        {% for patient in patient_list %}
+        <tr>
+            <td>{{patient.caseId}}</td>
+            <td>{{patient.last_name}}</td>
+            <td>{{patient.first_name}}</td>
+            <td>{{patient.Id_doc_num}}</td>
+            <td>{{patient.date_of_birth}}</td>
+            <td>{{patient.confirmed_date}}</td>
+            <td>
+                <a href="{% url 'patient-visits' patient.caseId %}" class = "button"> View more</a>
+            </td>
+        {% empty %}
+            <td colspan="6">No patient information available.</td>
+        </tr>
+        {% endfor %}
+        </table>
+    </section>
+</body> 
+</html>
