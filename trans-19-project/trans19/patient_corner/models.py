@@ -16,7 +16,7 @@ class Location(models.Model):
     address = models.CharField(max_length=50)
     x_coord = models.BigIntegerField()
     y_coord = models.BigIntegerField()
-    district_name = models.CharField(max_length=15)
+    district_name = models.CharField(max_length=30)
     
     def __str__(self):
         return self.location_name

@@ -3,7 +3,7 @@
 <html>
 <head>
   <link rel="stylesheet" type="text/css" href="{% static 'css/style.css'%}">
-</head>
+</head> 
 
 <body>    
   <header>
@@ -17,7 +17,7 @@
           <a href="#">Create New</a>
           <a href="patients">View All</a>
         </div>
-      </li>
+      </li> 
 
       <li class="dropdown">
         <a href="locations" class="dropbtn">Locations</a>
@@ -43,47 +43,36 @@
   </div>
   </header>
 
-  <form method="POST">
+<form method="POST" >
 
-    {% csrf_token %}
-    {{ form.as_p }}
-    
-    <button type="submit"> Create </button>
-  </form>
+{% csrf_token %}
+{{ form.as_p }}
 
-  <h1 style="text-align:center">View all Patients</h1>
-  <section>
-      <table align="center">
+<button type="submit"> Create </button>
+</form>
+
+<h1 style="text-align:center">View all Locations</h1>
+<section>
+  <table align="center">
       <tr>
-          <th>Case Id</th>
-          <th>Last name</th>
-          <th>First name</th>
-          <th>Identity document number</th>
-          <th>Date of birth</th>
-          <th>Confirmed date</th>
-          <th>Modify</th>
-          <th>Visiting information</th>
-
+        <th>Location</th>
+        <th>Address</th>
+        <th>X coordinate</th>
+        <th>Y coordinate</th>
+        <th>District</th>
       </tr>
-      {% for patient in patient_list %}
+      {% for location in location_list %}
       <tr>
-          <td>{{patient.caseId}}</td>
-          <td>{{patient.last_name}}</td>
-          <td>{{patient.first_name}}</td>
-          <td>{{patient.Id_doc_num}}</td>
-          <td>{{patient.date_of_birth}}</td>
-          <td>{{patient.confirmed_date}}</td>
-          <td>
-            <a href="#" class = "button"> Modify</a>
-          </td>
-          <td>
-              <a href="{% url 'patient_visit' patient.caseId %}" class = "button"> View </a>
-          </td>
+        <td>{{ location.location_name }}</td>
+        <td>{{ location.address }}</td>
+        <td>{{ location.x_coord }} </td>
+        <td>{{ location.y_coord }}</td>
+        <td>{{ location.district_name }}</td>
+      </tr>
       {% empty %}
-          <td colspan="8"> No patient information available.</td>
-      </tr>
+      <tr><td colspan="5">No location information available.</td></tr>
       {% endfor %}
-      </table>
-  </section>
+  </table>
+</section>
 </body> 
 </html>

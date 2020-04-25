@@ -1,48 +1,58 @@
+{%load static%}
 <!DOCTYPE html>
 <html>
 <head>
-<style>
-header {
-  background-color:LightGray;
-  padding: 20px;
-  text-align: center;
-  font-size: 25px;
-  color: black;
-}
-
-table {
-  font-family: arial, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
-}
-
-td, th {
-  border: 1px solid #dddddd;
-  text-align: left;
-  padding: 8px;
-}
-
-.button {      
-    background-color: #1c87c9;
-    font-family: arial, sans-serif;
-    border: none;     
-    color: white;
-    padding: 10px 20px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 15px;
-    margin: 4px 2px;
-    cursor: pointer;
-}
-</style>
+  <link rel="stylesheet" type="text/css" href="{% static 'css/style.css'%}">
 </head>
 
-<body>
-    <header>
-        <h3>Visiting info of {{ patient.last_name }} {{ patient.first_name }}</h3>
-    </header>
-<table style="width:95%">
+<body>    
+  <header>
+  <div class="menu">
+    <ul>
+      <li><a href="#home">TRANS-19</a></li>
+
+      <li class="dropdown">
+        <a href="patients" class="dropbtn">Patients</a>
+        <div class="dropdown-content">
+          <a href="#">Create New</a>
+          <a href="patients">View All</a>
+        </div>
+      </li>
+
+      <li class="dropdown">
+        <a href="locations" class="dropbtn">Locations</a>
+        <div class="dropdown-content">
+          <a href="#">Create New</a>
+          <a href="locations">View All</a>
+        </div>
+      </li>
+
+      <li class="dropdown">
+        <a href="visits" class="dropbtn">Visits</a>
+        <div class="dropdown-content">
+          <a href="#">Create New</a>
+        </div>
+      </li>
+
+      <li class="dropdown" style="float:right;"><a href="#user">Hi! <u>User</u></a> 
+        <div class="dropdown-content">
+          <a href="#">Logout</a>
+        </div>
+      </li>
+    </ul>
+  </div>
+  </header>
+
+    <form method="POST">
+
+      {% csrf_token %}
+      {{ form.as_p }}
+      
+      <button type="submit"> Create </button>
+    </form>
+
+    <h1 style="text-align:center"> Visiting info of {{ patient.last_name }} {{ patient.first_name }}</h1>
+  <table align="center">
     <tr>
       <th>Location</th>
       <th>Address</th>
@@ -56,20 +66,22 @@ td, th {
     </tr>
     {% for visit in visit_list %}
     <tr>
-      <td>{{visit.location.location_name}}</td>
-      <td>{{visit.location.address}}</td>
-      <td>{{visit.location.x_coord}}</td>
-      <td>{{visit.location.y_coord}}</td>
-      <td>{{visit.location.district_name}}</td>
-      <td>{{visit.date_from}}</td>
-      <td>{{visit.date_to}}</td>
-      <td>{{visit.detail}}</td>
-      <td>{{visit.category_name}}</td>
+      <td>{{ visit.location.location_name }}</td>
+      <td>{{ visit.location.address }}</td>
+      <td>{{ visit.location.x_coord }}</td>
+      <td>{{ visit.location.y_coord }}</td>
+      <td>{{ visit.location.district_name }}</td>
+      <td>{{ visit.date_from }}</td>
+      <td>{{ visit.date_to }}</td>
+      <td>{{ visit.detail }}</td>
+      <td>{{ visit.category_name }}</td>
     {% empty %}
       <td colspan="9">No visiting information available.</td>
     </tr>
     {% endfor %}
 </table>
-<a href="{% url 'patients'%}" class = "button"> Go back</a>
+  <div class="div">
+    <a href="{% url 'patients'%}" class = "button button1"> Go back</a>
+  </div>
 </body>
 </html>
