@@ -5,7 +5,7 @@
   <link rel="stylesheet" type="text/css" href="{% static 'css/style.css'%}">
 </head>
 
-<body>    
+<body>
   <header>
   <div class="menu">
     <ul>
@@ -15,7 +15,7 @@
         <a href="patients" class="dropbtn">Patients</a>
         <div class="dropdown-content">
           <a href="#">Create New</a>
-          <a href="patients">View All</a>
+          <a href="patient">View All</a>
         </div>
       </li>
 
@@ -27,14 +27,7 @@
         </div>
       </li>
 
-      <li class="dropdown">
-        <a href="visits" class="dropbtn">Visits</a>
-        <div class="dropdown-content">
-          <a href="#">Create New</a>
-        </div>
-      </li>
-
-      <li class="dropdown" style="float:right;"><a href="#user">Hi! <u>User</u></a> 
+      <li class="dropdown" style="float:right;"><a href="#user">Hi! <u>User</u></a>
         <div class="dropdown-content">
           <a href="#">Logout</a>
         </div>
@@ -47,7 +40,7 @@
 
     {% csrf_token %}
     {{ form.as_p }}
-    
+
     <button type="submit"> Create </button>
   </form>
 
@@ -74,7 +67,7 @@
           <td>{{patient.date_of_birth}}</td>
           <td>{{patient.confirmed_date}}</td>
           <td>
-            <a href="#" class = "button"> Modify</a>
+            <a href="{% url 'editpatient' patient.pk %}" class = "button"> Modify</a>
           </td>
           <td>
               <a href="{% url 'patient_visit' patient.caseId %}" class = "button"> View </a>
@@ -85,5 +78,5 @@
       {% endfor %}
       </table>
   </section>
-</body> 
+</body>
 </html>

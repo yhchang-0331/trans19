@@ -37,40 +37,36 @@
   </div>
   </header>
 
+  <table style="width:100%" align="center">
+    <tr>
+      <th>Location</th>
+      <th>Address</th>
+      <th>X coordinate</th>
+      <th>Y coordinate</th>
+      <th>District</th>
+      <th>Date from</th>
+      <th>Date to</th>
+      <th>Detail</th>
+      <th>Category</th>
+    </tr>
+    <tr>
+    <td>{{ visit.location.location_name }}</td>
+    <td>{{ visit.location.address }}</td>
+      <td>{{ visit.location.x_coord }}</td>
+      <td>{{ visit.location.y_coord }}</td>
+      <td>{{ visit.location.district_name }}</td>
+      <td>{{ visit.date_from }} </td>
+      <td>{{ visit.date_to }}</td>
+      <td>{{ visit.detail }}</td>
+      <td>{{ visit.category_name }}</td>
+      </tr>
+    </table>
+
 <form method="POST" >
 
 {% csrf_token %}
 {{ form.as_p }}
 
-<button type="submit"> Create </button>
+<button type="submit">Save</button>
 </form>
-
-<h1 style="text-align:center">View all Locations</h1>
-<section>
-  <table align="center">
-      <tr>
-        <th>Location</th>
-        <th>Address</th>
-        <th>X coordinate</th>
-        <th>Y coordinate</th>
-        <th>District</th>
-        <th>Modify</th>
-      </tr>
-      {% for location in location_list %}
-      <tr>
-        <td>{{ location.location_name }}</td>
-        <td>{{ location.address }}</td>
-        <td>{{ location.x_coord }} </td>
-        <td>{{ location.y_coord }}</td>
-        <td>{{ location.district_name }}</td>
-        <td>
-          <a href="{% url 'editlocation' location.pk %}" class = "button"> Modify</a>
-        </td>
-      </tr>
-      {% empty %}
-      <tr><td colspan="5">No location information available.</td></tr>
-      {% endfor %}
-  </table>
-</section>
-</body>
-</html>
+<a href="{% url 'patient_visit' visit.patient.caseId %}" class = "button">Cancel</a>

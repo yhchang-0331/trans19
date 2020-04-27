@@ -10,5 +10,14 @@ urlpatterns = [
         name = 'patients'),
     path('locations',
         views.ViewLocations.as_view(),
-        name = 'locations')
+        name = 'locations'),
+    path('editpatient/<int:patient>',
+        views.Editpatient.as_view(),
+        name='editpatient'),
+    path('<int:patient>/editvisit/<int:visit>',
+        views.Editvisit.as_view(),
+        name='editvisit'),
+    path('editlocation/<int:location>',
+        views.Editlocation.as_view(),
+        name='editlocation'),
 ]

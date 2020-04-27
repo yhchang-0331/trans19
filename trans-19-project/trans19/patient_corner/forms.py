@@ -27,9 +27,9 @@ class PatientCreateForm(forms.ModelForm):
     #first_name = forms.CharField(max_length=15)
     #last_name = forms.CharField(max_length=15)
     #Id_doc_num = forms.CharField(max_length=15)
-    date_of_birth = forms.DateField(widget = forms.SelectDateWidget)
-    confirmed_date = forms.DateField(widget = forms.SelectDateWidget)
-    
+    date_of_birth = forms.DateField(widget = forms.SelectDateWidget(years=range(1930,2021)))
+    confirmed_date = forms.DateField(widget = forms.SelectDateWidget(years = range(2019,2031)))
+
     class Meta:
         model = Patient
         fields = '__all__'
@@ -40,7 +40,7 @@ class LocationCreateForm(forms.ModelForm):
     #x_coord = forms.BigIntegerField()
     #y_coord = forms.BigIntegerField()
     district_name = forms.ChoiceField(choices=district_name_choices, required=True )
-    
+
     class Meta:
         model = Location
         fields = '__all__'
@@ -48,12 +48,11 @@ class LocationCreateForm(forms.ModelForm):
 class VisitCreateForm(forms.ModelForm):
     date_from = forms.DateField(widget = forms.SelectDateWidget)
     date_to = forms.DateField(widget = forms.SelectDateWidget)
-    
+
     class Meta:
         model = Visit
-        fields = '__all__'
+        exclude = ['patient']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['patient'].queryset = Patient.objects.all().order_by('caseId')
         self.fields['location'].queryset = Location.objects.all().order_by('location_name')
