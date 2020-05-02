@@ -2,88 +2,108 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <link rel="stylesheet" type="text/css" href="{% static 'css/style.css'%}">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/templatestyle.css'%}">
 </head>
 
-<body>    
+<body>
+<!-------------------------------- Navigation Bar div class="menu" -------------------------------->
   <header>
   <div class="menu">
     <ul>
-      <li><a href="#home">TRANS-19</a></li>
+      <li class="logo"><a href="home"><img src="{% static 'media/logo_navigation.png' %}" style = "max-width: 100%;" alt ="TRANS-19"></a></li>
 
       <li class="dropdown">
         <a href="patients" class="dropbtn">Patients</a>
         <div class="dropdown-content">
-          <a href="#">Create New</a>
-          <a href="patients">View All</a>
+          <a href="addpatient">New Patient</a>
+          <a href="patients">View All Patients</a>
         </div>
       </li>
 
       <li class="dropdown">
         <a href="locations" class="dropbtn">Locations</a>
         <div class="dropdown-content">
-          <a href="#">Create New</a>
-          <a href="locations">View All</a>
+          <a href="addlocation">New Location</a>
+          <a href="locations">View All Location</a>
         </div>
       </li>
 
       <li class="dropdown">
-        <a href="visits" class="dropbtn">Visits</a>
+        <a href="searching_form.html">Search Connection</a>
+      </li>
+
+      <li class="dropdown" style="float:right; border-left: 1px solid white;  border-right: 0px solid white;  ">
+        <a href="locations" class="dropbtn">Hi! <u>User</u></a>
         <div class="dropdown-content">
-          <a href="#">Create New</a>
+            <a href="#">Profile</a>
+            <a href="#">Logout</a>
         </div>
       </li>
 
-      <li class="dropdown" style="float:right;"><a href="#user">Hi! <u>User</u></a> 
-        <div class="dropdown-content">
-          <a href="#">Logout</a>
-        </div>
-      </li>
     </ul>
   </div>
   </header>
+<!-------------------------------- Navigation Bar div class="menu" -------------------------------->
 
-  <form method="POST">
+<!-------------------------------------------HEADING--------------------------------------------->
+  <div class="title">      
+    <h1 style="text-align:center">View All Patients</h1>
+  </div>
+<!-------------------------------------------HEADING--------------------------------------------->
 
-    {% csrf_token %}
-    {{ form.as_p }}
-    
-    <button type="submit"> Create </button>
-  </form>
+<!------------------------------------SORT and SEARCH BAR------------------------------------>
+  <div class="sortsearch" style="float:right;">
+    <select id="tableheading" class="tableheading">
+      <option value="caseId">Case ID</option>
+      <option value="last_name">Last Name</option>
+      <option value="first_name">First Name</option>
+      <option value="Id_doc_num">ID Document Number</option>
+      <option value="date_of_birth">Date of Birth</option>
+      <option value="confirmed_date">Confirmed Date</option>
+    </select>
+    <a href="" class="button" name="sort"> Sort</a>
+    <input type="text" placeholder="Search.." name="search" class="searchbar">
+    <a href="" class="button" name="search"> Search</a>
+  </div>
+<!------------------------------------SORT and SEARCH BAR------------------------------------>
 
-  <h1 style="text-align:center">View all Patients</h1>
-  <section>
-      <table align="center">
-      <tr>
-          <th>Case Id</th>
-          <th>Last name</th>
-          <th>First name</th>
-          <th>Identity document number</th>
-          <th>Date of birth</th>
-          <th>Confirmed date</th>
-          <th>Modify</th>
-          <th>Visiting information</th>
-
-      </tr>
-      {% for patient in patient_list %}
-      <tr>
-          <td>{{patient.caseId}}</td>
-          <td>{{patient.last_name}}</td>
-          <td>{{patient.first_name}}</td>
-          <td>{{patient.Id_doc_num}}</td>
-          <td>{{patient.date_of_birth}}</td>
-          <td>{{patient.confirmed_date}}</td>
-          <td>
-            <a href="#" class = "button"> Modify</a>
-          </td>
-          <td>
-              <a href="{% url 'patient_visit' patient.caseId %}" class = "button"> View </a>
-          </td>
-      {% empty %}
-          <td colspan="8"> No patient information available.</td>
+<!--------------------------------------TABLE-------------------------------------->
+  <table style="margin-top: 5%;">
+    <tr>
+      <th>Case ID</th>
+      <th>Last Name</th>
+      <th>First Name</th>
+      <th>Identity Document Number</th>
+      <th>Date of Birth</th>
+      <th>Confirmed date</th>
+      <th>Modify</th>
+      <th>Visit info</th>
+      <th>New Visit</th>
+    </tr>
+    {% for patient in patient_list %}
+    <tr>
+      <td>{{patient.caseId}}</td>
+      <td>{{patient.last_name}}</td>
+      <td>{{patient.first_name}}</td>
+      <td>{{patient.Id_doc_num}}</td>
+      <td>{{patient.date_of_birth}}</td>
+      <td>{{patient.confirmed_date}}</td>
+      <td>
+        <a href="{% url 'editpatient' patient.caseId %}" class="button"> Edit </a>
+      </td>
+      <td>
+        <a href="{% url 'patient_visit' patient.caseId %}" class="button"> View </a>
+      </td>
+      <td>
+        <a href="{% url 'addvisit' patient.caseId %}" class="button"> Add </a>
+      </td>
+        {% empty %}
+      <td colspan="9">No patient information available.</td>
       </tr>
       {% endfor %}
-      </table>
-  </section>
-</body> 
+  </table>
+<!--------------------------------------TABLE-------------------------------------->
+
+</body>
+
 </html>

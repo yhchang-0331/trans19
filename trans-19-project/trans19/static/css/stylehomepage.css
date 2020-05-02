@@ -1,0 +1,207 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+/*font lato*/
+
+@import url(https://fonts.google.com/specimen/Lato?query=lato);
+body {
+    /* 
+    font-weight: 100;;
+    Thin            100     
+    Extra Light     200
+    Light           300
+    Regular         400
+    Medium          500
+    Semi-Bold       600
+    Bold            700
+    Black           900*/
+    font-family: 'lato';
+}
+
+
+/*RIGHT COLUMN OVERLAY*/
+
+.rows {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+
+/* Create four equal columns */
+
+.columns {
+    flex: 50%;
+    padding: 10px 10px;
+}
+
+
+/*container*/
+
+.container {
+    position: relative;
+    width: 50%;
+    margin-left: 20%;
+}
+
+.image {
+    display: block;
+    width: 130%;
+    height: auto;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    width: 130%;
+    opacity: 0;
+    transition: .5s ease;
+    background-color: #2B7A78;
+}
+
+.container:hover .overlay {
+    opacity: 0.6;
+}
+
+.text {
+    color: white;
+    font-size: 1.3vw;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+}
+
+
+/*-----------------------------CSS for homepage.html body----------------------------*/
+
+.html {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.row {
+    display: flex;
+    min-height: 53vw;
+}
+
+.column {
+    flex: 50%;
+    background-color: #3aafa9;
+    overflow: hidden;
+}
+
+.img-container {
+    text-align: center;
+    transform: translate(2%, 70%);
+}
+
+
+/*-----------------------------CSS for homepage.html body----------------------------*/
+
+
+/*-----------------------------CSS for Navigation Bar----------------------------*/
+
+@font-face {
+    font-family: 'phosphateinlineroman';
+    src: url('font/patienphosphateinline-webfont.woff2') format('woff2'), url('font/phosphateinline-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.logo {
+    font-family: 'phosphateinlineroman';
+    display: block;
+    border-right: 1px solid white;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    font-size: 1.3vw;
+    max-width: 8vw;
+}
+
+.logo:hover {
+    background-color: white;
+    color: #2B7A78;
+}
+
+ul {
+    max-width: 100%;
+    font-family: 'Lato'sans-serif;
+    font-size: 1.2vw;
+    min-width: 100px;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #2B7A78;
+}
+
+li {
+    float: left;
+    width: 13vw;
+}
+
+li a,
+.dropbtn {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 12px 16px;
+    text-decoration: none;
+}
+
+li a:hover,
+li .dropdown:hover .dropbtn {
+    background-color: white;
+    color: #2B7A78;
+    display: block;
+}
+
+li.dropdown {
+    border-right: 1px solid white;
+    width: 13vw;
+    text-align: center;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #6aa1a0;
+    width: 13vw;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: white;
+    min-width: 100px;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: center;
+}
+
+.dropdown-content a:hover {
+    background-color: white;
+    color: #80A7A6;
+}
+
+.dropdown:hover .dropdown-content {
+    color: white;
+    display: block;
+}
+
+
+/*-----------------------------CSS for Navigation Bar----------------------------*/

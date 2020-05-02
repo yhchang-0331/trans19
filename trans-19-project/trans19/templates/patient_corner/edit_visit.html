@@ -24,7 +24,7 @@
         <a href="locations" class="dropbtn">Locations</a>
         <div class="dropdown-content">
           <a href="addlocation">New Location</a>
-          <a href="locations">View All Locations</a>
+          <a href="locations">View All Location</a>
         </div>
       </li>
 
@@ -46,52 +46,57 @@
 <!-------------------------------- Navigation Bar div class="menu" -------------------------------->
 
 <!-------------------------------------------HEADING--------------------------------------------->
-<div class="title">      
-  <h1 style="text-align:center">View All Locations</h1>
+<div class="title">
+  <h1 style="text-align:center">EDIT VISIT'S DETAILS OF {{ visit.patient.last_name }}, {{ visit.patient.first_name }} </h1>
 </div>
 <!-------------------------------------------HEADING--------------------------------------------->
 
-<!------------------------------------SORT and SEARCH BAR------------------------------------>
-<div class="sortsearch" style="float:right;">
-  <select id="tableheading" class="tableheading">
-    <option value="location_name">Location</option>
-    <option value="address">Address</option>
-    <option value="x_coord">X coordinate</option>
-    <option value="y_coord">Y coordinate</option>
-    <option value="district_name">District</option>
-  </select>
-  <a href="" class="button" name="sort"> Sort</a>
-  <input type="text" placeholder="Search.." name="search" class="searchbar">
-  <a href="" class="button" name="search"> Search</a>
-</div>
-<!------------------------------------SORT and SEARCH BAR------------------------------------>
+<!--------------------------------------TABLE-------------------------------------->
+  <table>
+    <tr>
+      <th>Location</th>
+      <th>Address</th>
+      <th>X coordinate</th>
+      <th>Y coordinate</th>
+      <th>District</th>
+      <th>Date from</th>
+      <th>Date to</th>
+      <th>Detail</th>
+      <th>Category</th>
+    </tr>
+    <tr>
+    <td>{{ visit.location.location_name }}</td>
+    <td>{{ visit.location.address }}</td>
+      <td>{{ visit.location.x_coord }}</td>
+      <td>{{ visit.location.y_coord }}</td>
+      <td>{{ visit.location.district_name }}</td>
+      <td>{{ visit.date_from }} </td>
+      <td>{{ visit.date_to }}</td>
+      <td>{{ visit.detail }}</td>
+      <td>{{ visit.category_name }}</td>
+      </tr>
+    </table>
+<!--------------------------------------TABLE-------------------------------------->
 
-<!--------------------------------------TABLE-------------------------------------->
-  <table style="margin-top: 5%;">
-      <tr>
-        <th>Location</th>
-        <th>Address</th>
-        <th>X coordinate</th>
-        <th>Y coordinate</th>
-        <th>District</th>
-        <th>Modify</th>
-      </tr>
-      {% for location in location_list %}
-      <tr>
-        <td>{{ location.location_name }}</td>
-        <td>{{ location.address }}</td>
-        <td>{{ location.x_coord }} </td>
-        <td>{{ location.y_coord }}</td>
-        <td>{{ location.district_name }}</td>
-        <td>
-          <a href="{% url 'editlocation' location.pk %}" class = "button"> Modify</a>
-        </td>
-      </tr>
-      {% empty %}
-      <tr><td colspan="6">No location information available.</td></tr>
+<!----------------------------------------FORM---------------------------------------->
+<div class="form">
+  <form method="POST" > 
+    {% csrf_token %}
+    <p>
+      {% for field in form %}
+      <div class="field" style="margin: 3%;">
+        <label for="{{ field.id_for_label }}" class="label" style="margin: 3%;">{{ field.label_tag }}</label>
+        {{ field }}
+      </div>
       {% endfor %}
-  </table>
-<!--------------------------------------TABLE-------------------------------------->
+    </p>
+    <center>
+      <button class="buttoncentre" style="margin-top: 2%; padding-right: 8%;" type="submit">Save</button>
+      <a href="{% url 'patient_visit' visit.patient.caseId %}" style="margin-top: 2%;" class="buttoncentre">Cancel</a>
+    </center>
+  </form>
+</div>
+<!----------------------------------------FORM---------------------------------------->
 
 </body>
 </html>

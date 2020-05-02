@@ -1,0 +1,135 @@
+{%load static%}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Welcome to TRANS-19</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/stylehomepage.css'%}">
+</head>
+
+<body bgcolor="3aafa9">
+    <!-------------------------------- Navigation Bar div class="menu" -------------------------------->
+    <header>
+        <div class="menu">
+            <ul>
+                <li class="logo"><a href="home"><img src="{% static 'media/logo_navigation.png' %}" style = "max-width: 100%;" alt ="TRANS-19"></a></li>
+
+                <li class="dropdown">
+                    <a href="patients" class="dropbtn">Patients</a>
+                    <div class="dropdown-content">
+                        <a href="addpatient">New Patient</a>
+                        <a href="patients">View All Patient</a>
+                    </div>
+                </li>
+
+                <li class="dropdown">
+                    <a href="locations" class="dropbtn">Locations</a>
+                    <div class="dropdown-content">
+                        <a href="addlocation">New Location</a>
+                        <a href="locations">View All Locations</a>
+                    </div>
+                </li>
+
+                <li class="dropdown">
+                    <a href="searching_form.html">Search Connection</a>
+                </li>
+
+                <li class="dropdown" style="float:right; border-left: 1px solid white;  border-right: 0px solid white;  ">
+                    <a href="locations" class="dropbtn">Hi! <u>User</u></a>
+                    <div class="dropdown-content">
+                        <a href="#">Profile</a>
+                        <a href="#">Logout</a>
+                    </div>
+                </li>
+
+            </ul>
+        </div>
+    </header>
+    <!-------------------------------- Navigation Bar div class="menu" -------------------------------->
+
+
+
+    <!-------------------------------------------- BODY ----------------------------------------------->
+    <div class="row">
+        <!-- LEFT COLUMN-->
+        <div class="column">
+            <div class="img-container">
+                <img src="{% static 'media/logo_welcome.png' %}" alt="Welcome to Trans-19" style="position: relative; width: 59%;">
+            </div>
+        </div>
+        <!-- RIGHT COLUMN-->
+        <div class="column">
+            <!--FLEXBOX-->
+            <div class="rows">
+                <div class="columns">
+                    <div class="container">
+                        <a href="patients">
+                        <img src="{% static 'media/patientcorner.png' %}" alt="Avatar" class="image">
+                        <div class="overlay">
+                            <div class="text">View All Patients</div> 
+                        </div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="columns">
+                    <div class="container">
+                        <a href="addpatient">
+                        <img src="{% static 'media/addnewpatient.png' %}" alt="Avatar" class="image">
+                        <div class="overlay">
+                            <div class="text">Add New Patient</div>
+                        </div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="columns">
+                    <div class="container">
+                        <a href="locations">
+                        <img src="{% static 'media/locationcorner.png' %}" alt="Avatar" class="image">
+                        <div class="overlay">
+                            <div class="text">View All Locations</div>
+                        </div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="columns">
+                    <div class="container">
+                        <a href="addlocation">
+                        <img src="{% static 'media/addnewlocation.png' %}" alt="Avatar" class="image">
+                        <div class="overlay">
+                            <div class="text">Add New Location</div>
+                        </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="columns">
+                    <div class="container">
+                        <a href="searching_form.html">
+                        <img src="{% static 'media/searchconnection.png' %}" alt="Avatar" class="image">
+                        <div class="overlay">
+                            <div class="text">Search For Connection</div>
+                        </div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="columns">
+                    <div class="container">
+                        <a href="logout.html">
+                        <img src="{% static 'media/logout.png' %}" alt="Avatar" class="image">
+                        <div class="overlay">
+                            <div class="text">Log Out</div>
+                        </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!--FLEXBOX-->
+        </div>
+    </div>
+    <!-------------------------------------------- BODY ----------------------------------------------->
+</body>
+
+</html>

@@ -24,11 +24,11 @@ district_name_choices = [
 ]
 
 class PatientCreateForm(forms.ModelForm):
-    #first_name = forms.CharField(max_length=15)
+    #first_name = forms.CharField(label='First Name')
     #last_name = forms.CharField(max_length=15)
     #Id_doc_num = forms.CharField(max_length=15)
-    date_of_birth = forms.DateField(widget = forms.SelectDateWidget)
-    confirmed_date = forms.DateField(widget = forms.SelectDateWidget)
+    date_of_birth = forms.DateField(widget = forms.SelectDateWidget(years=range(1940,2021)))
+    confirmed_date = forms.DateField(widget = forms.SelectDateWidget(years = range(2019,2021)))
     
     class Meta:
         model = Patient
@@ -46,8 +46,8 @@ class LocationCreateForm(forms.ModelForm):
         fields = '__all__'
 
 class VisitCreateForm(forms.ModelForm):
-    date_from = forms.DateField(widget = forms.SelectDateWidget)
-    date_to = forms.DateField(widget = forms.SelectDateWidget)
+    date_from = forms.DateField(widget = forms.SelectDateWidget(years=range(2019,2021)))
+    date_to = forms.DateField(widget = forms.SelectDateWidget(years=range(2019,2021)))
     
     class Meta:
         model = Visit

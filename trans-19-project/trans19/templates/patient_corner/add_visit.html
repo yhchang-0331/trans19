@@ -1,0 +1,76 @@
+{%load static%}
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="{% static 'css/templatestyle.css'%}">
+</head>
+
+<body>
+<!-------------------------------- Navigation Bar div class="menu" -------------------------------->
+<header>
+  <div class="menu">
+    <ul>
+      <li class="logo"><a href="home"><img src="{% static 'media/logo_navigation.png' %}" style = "max-width: 100%;" alt ="TRANS-19"></a></li>
+
+      <li class="dropdown">
+        <a href="patients" class="dropbtn">Patients</a>
+        <div class="dropdown-content">
+          <a href="addpatient" >New Patient</a>
+          <a href="patients" >View All Patients</a>
+        </div>
+      </li>
+
+      <li class="dropdown">
+        <a href="locations" class="dropbtn">Locations</a>
+        <div class="dropdown-content">
+          <a href="addlocation">New Location</a>
+          <a href="locations" >View All Location</a>
+        </div>
+      </li>
+
+      <li class="dropdown">
+        <a href="searching_form.html">Search Connection</a>
+      </li>
+
+      <li class="dropdown" style="float:right; border-left: 1px solid white;  border-right: 0px solid white;  ">
+        <a href="locations" class="dropbtn">Hi! <u>User</u></a>
+        <div class="dropdown-content">
+            <a href="#">Profile</a>
+            <a href="#">Logout</a>
+        </div>
+      </li>
+
+    </ul>
+  </div>
+</header>
+<!-------------------------------- Navigation Bar div class="menu" -------------------------------->
+
+<!-------------------------------------------HEADING--------------------------------------------->
+<div class="title">
+  <h1 style="text-align:center"> CREATE NEW VISIT'S RECORD FOR {{ patient.last_name }} {{ patient.first_name }} </h1>
+</div>
+<!-------------------------------------------HEADING--------------------------------------------->
+
+<!----------------------------------------FORM---------------------------------------->
+<div class="form">
+  <form method="POST" > 
+    {% csrf_token %}
+    <p>
+      {% for field in form %}
+      <div class="field" style="margin: 3%;">
+        <label for="{{ field.id_for_label }}" class="label" style="margin: 3%;">{{ field.label_tag }}</label>
+        {{ field }}
+      </div>
+      {% endfor %}
+    </p>
+    <center>
+      <button class="buttoncentre" style="margin-top: 2%; padding-right: 8%;" type="submit">Add</button>
+      <a href="{% url 'patients' %}" style="margin-top: 2%;" class="buttoncentre">Cancel</a>
+    </center>
+  </form>
+</div>
+<!----------------------------------------FORM---------------------------------------->
+
+
+</body>
+</html>
