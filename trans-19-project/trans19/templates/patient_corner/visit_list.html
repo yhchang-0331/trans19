@@ -46,7 +46,7 @@
 <!-------------------------------- Navigation Bar div class="menu" -------------------------------->
 
 <!-------------------------------------------HEADING--------------------------------------------->
-  <div class="title">      
+  <div class="title">
     <h1 style="text-align:center"> VISITING INFO OF {{ patient.last_name }} {{ patient.first_name }}</h1>
   </div>
 <!-------------------------------------------HEADING--------------------------------------------->
@@ -68,6 +68,9 @@
 <!------------------------------------SORT and SEARCH BAR------------------------------------>
 
 <!--------------------------------------TABLE-------------------------------------->
+<form  method="post">
+    {% csrf_token %}
+  <button type="submit" name = "delete_entry">DELETE</button>
   <table style="margin-top: 5%;">
     <tr>
       <th>Location</th>
@@ -80,6 +83,7 @@
       <th>Detail</th>
       <th>Category</th>
       <th>Modify</th>
+      <th> </th>
     </tr>
     {% for visit in visit_list %}
     <tr>
@@ -95,11 +99,15 @@
       <td>
         <a href="{% url 'editvisit' visit.patient.pk visit.pk %}" class = "button"> Modify</a>
       </td>
+      <td>
+        <input type="checkbox" name="visit_to_be_deleted" value="{{visit.pk}}">
+      </td>
     {% empty %}
       <td colspan="9">No visiting information available.</td>
     </tr>
     {% endfor %}
   </table>
+</form>
 <!--------------------------------------TABLE-------------------------------------->
 <div style="display: block; width: 80px; margin: 30% auto; text-align: center;">
   <a href="{% url 'patients'%}" class ="buttoncentre">Back</a>

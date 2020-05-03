@@ -1,0 +1,9 @@
+<p> are you sure you want to delete </p>
+{% for patient in patients %}
+<p>{{patient.first_name}} {{patient.last_name}}</p>
+{% endfor %}
+<form  method="post">
+    {% csrf_token %}
+    <button type="submit" name = "delete_entry">DELETE</button>
+    <button type="submit" name = "cancel">CANCEL</button>
+</form>

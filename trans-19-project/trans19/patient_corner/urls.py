@@ -32,4 +32,10 @@ urlpatterns = [
     path('home',
         views.Home.as_view(),
         name='home'),
+    path('deletepatient',
+        views.DeletePatient.as_view(),
+        name = 'deletepatient'),
+    path('deletevisit/<int:patient>',
+        views.DeleteVisit.as_view(),
+        name = 'deletevisit'),
 ]

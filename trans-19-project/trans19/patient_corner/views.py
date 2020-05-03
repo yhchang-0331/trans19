@@ -5,7 +5,7 @@ from patient_corner.models import Patient, Location, Visit
 from django.shortcuts import render,redirect,get_object_or_404
 from django.urls import reverse_lazy
 
-class Addpatient(FormView): 
+class Addpatient(FormView):
     model = Patient
     form_class = PatientCreateForm
     template_name = "patient_corner/add_patient.html"
@@ -47,7 +47,7 @@ class Addvisit(FormView):
     template_name = "patient_corner/add_visit.html"
 
     def get(self, request, **kwargs):
-        form = VisitCreateForm() 
+        form = VisitCreateForm()
         patient = Patient.objects.get(pk = self.kwargs['patient'])
         visit = Visit.objects.filter(patient_id = patient)
         args = {'form': form,'add_visit': visit,'patient': patient}
@@ -60,7 +60,7 @@ class Addvisit(FormView):
         form = VisitCreateForm()
         return redirect(reverse_lazy('patient_visit',args =[patient]))
 
-class Editpatient(UpdateView): 
+class Editpatient(UpdateView):
     model = Patient
     form_class = PatientCreateForm
     template_name = "patient_corner/edit_patient.html"
@@ -86,7 +86,7 @@ class Editvisit(UpdateView):
         visit = get_object_or_404(Visit, pk=number)
         patient = visit.patient.caseId
         return reverse_lazy('patient_visit',args=[patient])
-        
+
 class Editlocation(UpdateView):
     model = Location
     form_class = LocationCreateForm
@@ -101,7 +101,7 @@ class Editlocation(UpdateView):
 
 class PatientVisitData(TemplateView):
     template_name = "patient_corner/visit_list.html"
-    
+
     def get_context_data(self, **kwargs):
         patient = self.kwargs['patient']
         context = super().get_context_data(**kwargs)
@@ -109,9 +109,47 @@ class PatientVisitData(TemplateView):
         context['patient'] = Patient.objects.get(pk = patient)
         return context
 
+    def post(self,request,patient):
+        tbd = request.POST.getlist('visit_to_be_deleted')
+        if tbd != []:
+            request.session['visit_to_be_deleted'] = tbd
+        return redirect(reverse_lazy('deletevisit',args = [patient]))
+
 class ViewPatients(ListView):
     template_name = "patient_corner/patient_list.html"
     model = Patient
+    def post(self,request):
+        tbd = request.POST.getlist('patient_to_be_deleted')
+        if tbd != []:
+            request.session['patient_to_be_deleted'] = tbd
+            return redirect('deletepatient')
+
+class DeletePatient(TemplateView):
+    template_name = 'patient_corner/delete_patient.html'
+    def get(self,request):
+        patient_nos = request.session['patient_to_be_deleted']
+        patients = Patient.objects.filter(caseId__in=patient_nos)
+        args = {'patients':patients}
+        return render(request,self.template_name,args)
+    def post(self,request):
+        if 'delete_entry' in request.POST:
+            patient_nos = request.session['patient_to_be_deleted']
+            Patient.objects.filter(caseId__in=patient_nos).delete()
+            del request.session['patient_to_be_deleted']
+        return redirect(reverse_lazy('patients'))
+
+class DeleteVisit(TemplateView):
+    template_name = 'patient_corner/delete_visit.html'
+    def get(self,request,patient):
+        visit_nos = request.session['visit_to_be_deleted']
+        visit = Visit.objects.filter(pk__in=visit_nos)
+        args = {'visits':visit}
+        return render(request,self.template_name,args)
+    def post(self,request,patient):
+        if 'delete_entry' in request.POST:
+            visit_nos = request.session['visit_to_be_deleted']
+            Visit.objects.filter(pk__in=visit_nos).delete()
+        return redirect(reverse_lazy('patient_visit',args = [patient]))
 
 class ViewLocations(ListView):
     template_name = "patient_corner/location_list.html"
