@@ -1,0 +1,6 @@
+<!--Just to show the query for the visits between the specified dates work -->
+
+{% for visit in visits%}
+<p>{{visit.category_name}}</p>
+<p>{{visit.location.address}}</p>
+{% endfor %}

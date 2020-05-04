@@ -1,9 +1,11 @@
 from django.views.generic import TemplateView, UpdateView, FormView
 from django.views.generic.list import ListView
-from patient_corner.forms import LocationCreateForm, PatientCreateForm, VisitCreateForm
+from patient_corner.forms import LocationCreateForm, PatientCreateForm, VisitCreateForm, SearchConnectionForm
 from patient_corner.models import Patient, Location, Visit
 from django.shortcuts import render,redirect,get_object_or_404
 from django.urls import reverse_lazy
+import datetime
+from django.db.models import Q
 
 class Addpatient(FormView):
     model = Patient
@@ -158,3 +160,36 @@ class ViewLocations(ListView):
 class Home(ListView):
     template_name = "patient_corner/homepage.html"
     model = Patient # Though we don't need this we must declare else it won't compile
+
+
+
+
+class SearchConnection(FormView):
+
+    model = Visit
+    form_class = SearchConnectionForm
+    template_name = "patient_corner/searchconnection.html"
+    def post(self,request,**kwargs):
+        print(request.POST)
+        patient = request.POST.get('patient')
+        year = request.POST.get('date_year')
+        month = request.POST.get('date_month')
+        day = request.POST.get('date_day')
+        Window_day = request.POST.get('Window_day')
+        return redirect(reverse_lazy('view_connections',args = [patient,year,month,day,Window_day]))
+
+class ViewConnections(TemplateView):
+    template_name = "patient_corner/view_connections.html"
+    def get(self,request,*args,**kwargs):
+        patient = int(self.kwargs['patient'])
+        year = self.kwargs['year']
+        month = self.kwargs['month']
+        day = self.kwargs['day']
+        Window_day = self.kwargs['Window_day']
+        date_from = datetime.date(year,month,day)-datetime.timedelta(days=Window_day)
+        date_to = datetime.date(year,month,day)+datetime.timedelta(days=Window_day)
+        visits = Visit.objects.filter(Q(patient_id = patient)&
+            ((Q(date_from__gte = date_from)&Q(date_from__lte = date_to))
+            |(Q(date_to__gte = date_from)&Q(date_to__lte = date_to))))
+        args = {'visits':visits}
+        return render(request, self.template_name, args)

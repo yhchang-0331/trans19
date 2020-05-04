@@ -8,41 +8,41 @@
 <body>
 <!-------------------------------- Navigation Bar div class="menu" -------------------------------->
 <header>
-  <div class="menu">
-    <ul>
-      <li class="logo"><a href="home"><img src="{% static 'media/logo_navigation.png' %}" style = "max-width: 100%;" alt ="TRANS-19"></a></li>
+    <div class="menu">
+      <ul>
+        <li class="logo"><a href="{% url 'home' %}"><img src="{% static 'media/logo_navigation.png' %}" style = "max-width: 100%;" alt ="TRANS-19"></a></li>
 
-      <li class="dropdown">
-        <a href="patients" class="dropbtn">Patients</a>
-        <div class="dropdown-content">
-          <a href="addpatient">New Patient</a>
-          <a href="patients">View All Patients</a>
-        </div>
-      </li>
+        <li class="dropdown">
+          <a href="{% url 'patients' %}" class="dropbtn">Patients</a>
+          <div class="dropdown-content">
+            <a href="{% url 'addpatient' %}" >New Patient</a>
+            <a href="{% url 'patients' %}" >View All Patients</a>
+          </div>
+        </li>
 
-      <li class="dropdown">
-        <a href="locations" class="dropbtn">Locations</a>
-        <div class="dropdown-content">
-          <a href="addlocation">New Location</a>
-          <a href="locations">View All Location</a>
-        </div>
-      </li>
+        <li class="dropdown">
+          <a href="{% url 'locations' %}" class="dropbtn">Locations</a>
+          <div class="dropdown-content">
+            <a href="{% url 'addlocation' %}">New Location</a>
+            <a href="{% url 'locations' %}" >View All Location</a>
+          </div>
+        </li>
 
-      <li class="dropdown">
-        <a href="searching_form.html">Search Connection</a>
-      </li>
+        <li class="dropdown">
+          <a href="{% url 'searchconnection' %}">Search Connection</a>
+        </li>
 
-      <li class="dropdown" style="float:right; border-left: 1px solid white;  border-right: 0px solid white;  ">
-        <a href="locations" class="dropbtn">Hi! <u>User</u></a>
-        <div class="dropdown-content">
-            <a href="#">Profile</a>
-            <a href="#">Logout</a>
-        </div>
-      </li>
+        <li class="dropdown" style="float:right; border-left: 1px solid white;  border-right: 0px solid white;  ">
+          <a href="{% url 'locations' %}" class="dropbtn">Hi! <u>User</u></a>
+          <div class="dropdown-content">
+              <a href="#">Profile</a>
+              <a href="#">Logout</a>
+          </div>
+        </li>
 
-    </ul>
-  </div>
-  </header>
+      </ul>
+    </div>
+</header>
 <!-------------------------------- Navigation Bar div class="menu" -------------------------------->
 
 <!-------------------------------------------HEADING--------------------------------------------->
@@ -74,7 +74,7 @@
 
 <!----------------------------------------FORM---------------------------------------->
   <div class="form">
-    <form method="POST" > 
+    <form method="POST" >
       {% csrf_token %}
       <p>
         {% for field in form %}

@@ -107,7 +107,7 @@ table {
     top: 35%;
     left: 50%;
     margin-right: -50%;
-    transform: translate(-50%, -50%)
+    transform: translate(-50%, -50%);
 }
 
 th {
@@ -144,6 +144,10 @@ td {
     height: 2vw;
 }
 
+mark {
+    color: white;
+    background-color:#2B7A78;
+}
 
 /*-----------------------------Table----------------------------*/
 

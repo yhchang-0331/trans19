@@ -11,38 +11,38 @@
     <!-------------------------------- Navigation Bar div class="menu" -------------------------------->
     <header>
         <div class="menu">
-            <ul>
-                <li class="logo"><a href="home"><img src="{% static 'media/logo_navigation.png' %}" style = "max-width: 100%;" alt ="TRANS-19"></a></li>
+          <ul>
+            <li class="logo"><a href="{% url 'home' %}"><img src="{% static 'media/logo_navigation.png' %}" style = "max-width: 100%;" alt ="TRANS-19"></a></li>
 
-                <li class="dropdown">
-                    <a href="patients" class="dropbtn">Patients</a>
-                    <div class="dropdown-content">
-                        <a href="addpatient">New Patient</a>
-                        <a href="patients">View All Patient</a>
-                    </div>
-                </li>
+            <li class="dropdown">
+              <a href="{% url 'patients' %}" class="dropbtn">Patients</a>
+              <div class="dropdown-content">
+                <a href="{% url 'addpatient' %}" >New Patient</a>
+                <a href="{% url 'patients' %}" >View All Patients</a>
+              </div>
+            </li>
 
-                <li class="dropdown">
-                    <a href="locations" class="dropbtn">Locations</a>
-                    <div class="dropdown-content">
-                        <a href="addlocation">New Location</a>
-                        <a href="locations">View All Locations</a>
-                    </div>
-                </li>
+            <li class="dropdown">
+              <a href="{% url 'locations' %}" class="dropbtn">Locations</a>
+              <div class="dropdown-content">
+                <a href="{% url 'addlocation' %}">New Location</a>
+                <a href="{% url 'locations' %}" >View All Location</a>
+              </div>
+            </li>
 
-                <li class="dropdown">
-                    <a href="searching_form.html">Search Connection</a>
-                </li>
+            <li class="dropdown">
+              <a href="{% url 'searchconnection' %}">Search Connection</a>
+            </li>
 
-                <li class="dropdown" style="float:right; border-left: 1px solid white;  border-right: 0px solid white;  ">
-                    <a href="locations" class="dropbtn">Hi! <u>User</u></a>
-                    <div class="dropdown-content">
-                        <a href="#">Profile</a>
-                        <a href="#">Logout</a>
-                    </div>
-                </li>
+            <li class="dropdown" style="float:right; border-left: 1px solid white;  border-right: 0px solid white;  ">
+              <a href="{% url 'locations' %}" class="dropbtn">Hi! <u>User</u></a>
+              <div class="dropdown-content">
+                  <a href="#">Profile</a>
+                  <a href="#">Logout</a>
+              </div>
+            </li>
 
-            </ul>
+          </ul>
         </div>
     </header>
     <!-------------------------------- Navigation Bar div class="menu" -------------------------------->
@@ -63,10 +63,10 @@
             <div class="rows">
                 <div class="columns">
                     <div class="container">
-                        <a href="patients">
+                        <a href="{% url 'patients' %}">
                         <img src="{% static 'media/patientcorner.png' %}" alt="Avatar" class="image">
                         <div class="overlay">
-                            <div class="text">View All Patients</div> 
+                            <div class="text">View All Patients</div>
                         </div>
                         </a>
                     </div>
@@ -74,7 +74,7 @@
 
                 <div class="columns">
                     <div class="container">
-                        <a href="addpatient">
+                        <a href="{% url 'addpatient' %}">
                         <img src="{% static 'media/addnewpatient.png' %}" alt="Avatar" class="image">
                         <div class="overlay">
                             <div class="text">Add New Patient</div>
@@ -85,7 +85,7 @@
 
                 <div class="columns">
                     <div class="container">
-                        <a href="locations">
+                        <a href="{% url 'locations' %}">
                         <img src="{% static 'media/locationcorner.png' %}" alt="Avatar" class="image">
                         <div class="overlay">
                             <div class="text">View All Locations</div>
@@ -96,7 +96,7 @@
 
                 <div class="columns">
                     <div class="container">
-                        <a href="addlocation">
+                        <a href="{% url 'addlocation' %}">
                         <img src="{% static 'media/addnewlocation.png' %}" alt="Avatar" class="image">
                         <div class="overlay">
                             <div class="text">Add New Location</div>
@@ -106,7 +106,7 @@
                 </div>
                 <div class="columns">
                     <div class="container">
-                        <a href="searching_form.html">
+                        <a href="{% url 'searchconnection' %}">
                         <img src="{% static 'media/searchconnection.png' %}" alt="Avatar" class="image">
                         <div class="overlay">
                             <div class="text">Search For Connection</div>
@@ -117,7 +117,7 @@
 
                 <div class="columns">
                     <div class="container">
-                        <a href="logout.html">
+                        <a href="#">
                         <img src="{% static 'media/logout.png' %}" alt="Avatar" class="image">
                         <div class="overlay">
                             <div class="text">Log Out</div>

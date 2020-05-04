@@ -8,90 +8,100 @@
 <body>
 <!-------------------------------- Navigation Bar div class="menu" -------------------------------->
 <header>
-  <div class="menu">
-    <ul>
-      <li class="logo"><a href="home"><img src="{% static 'media/logo_navigation.png' %}" style = "max-width: 100%;" alt ="TRANS-19"></a></li>
+    <div class="menu">
+      <ul>
+        <li class="logo"><a href="{% url 'home' %}"><img src="{% static 'media/logo_navigation.png' %}" style = "max-width: 100%;" alt ="TRANS-19"></a></li>
 
-      <li class="dropdown">
-        <a href="patients" class="dropbtn">Patients</a>
-        <div class="dropdown-content">
-          <a href="addpatient">New Patient</a>
-          <a href="patients">View All Patients</a>
-        </div>
-      </li>
+        <li class="dropdown">
+          <a href="{% url 'patients' %}" class="dropbtn">Patients</a>
+          <div class="dropdown-content">
+            <a href="{% url 'addpatient' %}" >New Patient</a>
+            <a href="{% url 'patients' %}" >View All Patients</a>
+          </div>
+        </li>
 
-      <li class="dropdown">
-        <a href="locations" class="dropbtn">Locations</a>
-        <div class="dropdown-content">
-          <a href="addlocation">New Location</a>
-          <a href="locations">View All Locations</a>
-        </div>
-      </li>
+        <li class="dropdown">
+          <a href="{% url 'locations' %}" class="dropbtn">Locations</a>
+          <div class="dropdown-content">
+            <a href="{% url 'addlocation' %}">New Location</a>
+            <a href="{% url 'locations' %}" >View All Location</a>
+          </div>
+        </li>
 
-      <li class="dropdown">
-        <a href="searching_form.html">Search Connection</a>
-      </li>
+        <li class="dropdown">
+          <a href="{% url 'searchconnection' %}">Search Connection</a>
+        </li>
 
-      <li class="dropdown" style="float:right; border-left: 1px solid white;  border-right: 0px solid white;  ">
-        <a href="locations" class="dropbtn">Hi! <u>User</u></a>
-        <div class="dropdown-content">
-            <a href="#">Profile</a>
-            <a href="#">Logout</a>
-        </div>
-      </li>
+        <li class="dropdown" style="float:right; border-left: 1px solid white;  border-right: 0px solid white;  ">
+          <a href="{% url 'locations' %}" class="dropbtn">Hi! <u>User</u></a>
+          <div class="dropdown-content">
+              <a href="#">Profile</a>
+              <a href="#">Logout</a>
+          </div>
+        </li>
 
-    </ul>
-  </div>
-  </header>
+      </ul>
+    </div>
+</header>
 <!-------------------------------- Navigation Bar div class="menu" -------------------------------->
 
 <!-------------------------------------------HEADING--------------------------------------------->
-<div class="title">      
+<div class="title">
   <h1 style="text-align:center">View All Locations</h1>
 </div>
 <!-------------------------------------------HEADING--------------------------------------------->
 
 <!------------------------------------SORT and SEARCH BAR------------------------------------>
-<div class="sortsearch" style="float:right;">
-  <select id="tableheading" class="tableheading">
-    <option value="location_name">Location</option>
-    <option value="address">Address</option>
-    <option value="x_coord">X coordinate</option>
-    <option value="y_coord">Y coordinate</option>
-    <option value="district_name">District</option>
-  </select>
-  <a href="" class="button" name="sort"> Sort</a>
-  <input type="text" placeholder="Search.." name="search" class="searchbar">
-  <a href="" class="button" name="search"> Search</a>
-</div>
+  <div class="sortsearch" style="float:right;">
+    <select id="tableheading" class="tableheading"  onclick="searching()">
+      <option value="5">Select</option>
+      <option value="0">Location</option>
+      <option value="1">Address</option>
+      <option value="2">X coord</option>
+      <option value="3">Y coord</option>
+      <option value="4">District</option>
+    </select>
+    <input type="text" placeholder="Search.." name="search" class="searchbar" onkeyup="searching()" id="INPUT">
+  </div>
 <!------------------------------------SORT and SEARCH BAR------------------------------------>
 
 <!--------------------------------------TABLE-------------------------------------->
-  <table style="margin-top: 5%;">
-      <tr>
-        <th>Location</th>
-        <th>Address</th>
-        <th>X coordinate</th>
-        <th>Y coordinate</th>
-        <th>District</th>
-        <th>Modify</th>
-      </tr>
-      {% for location in location_list %}
-      <tr>
-        <td>{{ location.location_name }}</td>
-        <td>{{ location.address }}</td>
-        <td>{{ location.x_coord }} </td>
-        <td>{{ location.y_coord }}</td>
-        <td>{{ location.district_name }}</td>
-        <td>
-          <a href="{% url 'editlocation' location.pk %}" class = "button"> Modify</a>
-        </td>
-      </tr>
-      {% empty %}
-      <tr><td colspan="6">No location information available.</td></tr>
-      {% endfor %}
+<form  method="post">
+  {% csrf_token %}
+  <table style="margin-top: 5%;" id="TABLE">
+    <tr>
+      <th>Location <mark onclick="sorting(0)">⇅</mark></th>
+      <th>Address <mark onclick="sorting(1)">⇅</mark></th>
+      <th>X coord <mark onclick="sorting(2)">⇅</mark></th>
+      <th>Y coord <mark onclick="sorting(3)">⇅</mark></th>
+      <th>District <mark onclick="sorting(4)">⇅</mark></th>
+      <th>Modify</th>
+      <th><button type="submit" name = "delete_entry">DELETE</button></th>
+    </tr>
+    {% for location in location_list %}
+    <tr>
+      <td>{{ location.location_name }}</td>
+      <td>{{ location.address }}</td>
+      <td>{{ location.x_coord }} </td>
+      <td>{{ location.y_coord }}</td>
+      <td>{{ location.district_name }}</td>
+      <td><a href="{% url 'editlocation' location.pk %}" class = "button">Edit</a></td>
+      <td><input type="checkbox" name="patient_to_be_deleted" value="{{patient.pk}}"></td>
+    </tr>
+
+    {% empty %}
+    <tr>
+      <td colspan="7">No location information available.</td>
+    </tr>
+    {% endfor %}
+
   </table>
+</form>
 <!--------------------------------------TABLE-------------------------------------->
+
+<!----------------------------------JAVASCRIPT-------------------------------------->
+<script type="text/javascript" src={% static "js/function.js" %}></script>
+<!----------------------------------JAVASCRIPT-------------------------------------->
 
 </body>
 </html>

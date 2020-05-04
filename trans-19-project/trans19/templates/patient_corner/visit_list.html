@@ -8,41 +8,41 @@
 <body>
 <!-------------------------------- Navigation Bar div class="menu" -------------------------------->
 <header>
-  <div class="menu">
-    <ul>
-      <li class="logo"><a href="home"><img src="{% static 'media/logo_navigation.png' %}" style = "max-width: 100%;" alt ="TRANS-19"></a></li>
+    <div class="menu">
+      <ul>
+        <li class="logo"><a href="{% url 'home' %}"><img src="{% static 'media/logo_navigation.png' %}" style = "max-width: 100%;" alt ="TRANS-19"></a></li>
 
-      <li class="dropdown">
-        <a href="patients" class="dropbtn">Patients</a>
-        <div class="dropdown-content">
-          <a href="addpatient">New Patient</a>
-          <a href="patients">View All Patients</a>
-        </div>
-      </li>
+        <li class="dropdown">
+          <a href="{% url 'patients' %}" class="dropbtn">Patients</a>
+          <div class="dropdown-content">
+            <a href="{% url 'addpatient' %}" >New Patient</a>
+            <a href="{% url 'patients' %}" >View All Patients</a>
+          </div>
+        </li>
 
-      <li class="dropdown">
-        <a href="locations" class="dropbtn">Locations</a>
-        <div class="dropdown-content">
-          <a href="addlocation">New Location</a>
-          <a href="locations">View All Location</a>
-        </div>
-      </li>
+        <li class="dropdown">
+          <a href="{% url 'locations' %}" class="dropbtn">Locations</a>
+          <div class="dropdown-content">
+            <a href="{% url 'addlocation' %}">New Location</a>
+            <a href="{% url 'locations' %}" >View All Location</a>
+          </div>
+        </li>
 
-      <li class="dropdown">
-        <a href="searching_form.html">Search Connection</a>
-      </li>
+        <li class="dropdown">
+          <a href="{% url 'searchconnection' %}">Search Connection</a>
+        </li>
 
-      <li class="dropdown" style="float:right; border-left: 1px solid white;  border-right: 0px solid white;  ">
-        <a href="locations" class="dropbtn">Hi! <u>User</u></a>
-        <div class="dropdown-content">
-            <a href="#">Profile</a>
-            <a href="#">Logout</a>
-        </div>
-      </li>
+        <li class="dropdown" style="float:right; border-left: 1px solid white;  border-right: 0px solid white;  ">
+          <a href="{% url 'locations' %}" class="dropbtn">Hi! <u>User</u></a>
+          <div class="dropdown-content">
+              <a href="#">Profile</a>
+              <a href="#">Logout</a>
+          </div>
+        </li>
 
-    </ul>
-  </div>
-  </header>
+      </ul>
+    </div>
+</header>
 <!-------------------------------- Navigation Bar div class="menu" -------------------------------->
 
 <!-------------------------------------------HEADING--------------------------------------------->
@@ -53,37 +53,38 @@
 
 <!------------------------------------SORT and SEARCH BAR------------------------------------>
   <div class="sortsearch" style="float:right;">
-    <select id="tableheading" class="tableheading">
-      <option value="caseId">Case ID</option>
-      <option value="last_name">Last Name</option>
-      <option value="first_name">First Name</option>
-      <option value="Id_doc_num">ID Document Number</option>
-      <option value="date_of_birth">Audi</option>
-      <option value="confirmed_date">Confirmed Date</option>
+    <select id="tableheading" class="tableheading"  onclick="searching()">
+      <option value="9">Select</option>
+      <option value="0">Location</option>
+      <option value="1">Address</option>
+      <option value="2">X Coord</option>
+      <option value="3">Y Coord</option>
+      <option value="4">District</option>
+      <option value="5">Date from</option>
+      <option value="6">Date to</option>
+      <option value="7">Detail</option>
+      <option value="8">Category</option>
     </select>
-    <a href="" class="button" name="sort"> Sort</a>
-    <input type="text" placeholder="Search.." name="search" class="searchbar">
-    <a href="" class="button" name="search"> Search</a>
+    <input type="text" placeholder="Search.." name="search" class="searchbar" onkeyup="searching()" id="INPUT">
   </div>
 <!------------------------------------SORT and SEARCH BAR------------------------------------>
 
 <!--------------------------------------TABLE-------------------------------------->
 <form  method="post">
-    {% csrf_token %}
-  <button type="submit" name = "delete_entry">DELETE</button>
-  <table style="margin-top: 5%;">
+  {% csrf_token %}
+  <table style="margin-top: 5%;" id="TABLE">
     <tr>
-      <th>Location</th>
-      <th>Address</th>
-      <th>X Coordinate</th>
-      <th>Y Coordinate</th>
-      <th>District</th>
-      <th>Date from</th>
-      <th>Date to</th>
-      <th>Detail</th>
-      <th>Category</th>
+      <th>Location <mark onclick="sorting(0)">⇅</mark></th>
+      <th>Address <mark onclick="sorting(1)">⇅</mark></th>
+      <th>X Coord <mark onclick="sorting(2)">⇅</mark></th>
+      <th>Y Coord <mark onclick="sorting(3)">⇅</mark></th>
+      <th>District <mark onclick="sorting(4)">⇅</mark></th>
+      <th>Date from <mark onclick="sorting(5)">⇅</mark></th>
+      <th>Date to <mark onclick="sorting(6)">⇅</mark></th>
+      <th>Detail <mark onclick="sorting(7)">⇅</mark></th>
+      <th>Category <mark onclick="sorting(8)">⇅</mark></th>
       <th>Modify</th>
-      <th> </th>
+      <th><button type="submit" name = "delete_entry">DELETE</button></th>
     </tr>
     {% for visit in visit_list %}
     <tr>
@@ -96,21 +97,29 @@
       <td>{{ visit.date_to }}</td>
       <td>{{ visit.detail }}</td>
       <td>{{ visit.category_name }}</td>
-      <td>
-        <a href="{% url 'editvisit' visit.patient.pk visit.pk %}" class = "button"> Modify</a>
-      </td>
-      <td>
-        <input type="checkbox" name="visit_to_be_deleted" value="{{visit.pk}}">
-      </td>
+      <td><a href="{% url 'editvisit' visit.patient.pk visit.pk %}" class = "button">Edit</a></td>
+      <td><input type="checkbox" name="visit_to_be_deleted" value="{{visit.pk}}"></td>
+    </tr>
+
     {% empty %}
-      <td colspan="9">No visiting information available.</td>
+    <tr>
+      <td colspan="11">No visiting information available.</td>
     </tr>
     {% endfor %}
+
   </table>
 </form>
 <!--------------------------------------TABLE-------------------------------------->
+
+<!--------------------------------------BACK-------------------------------------->
 <div style="display: block; width: 80px; margin: 30% auto; text-align: center;">
   <a href="{% url 'patients'%}" class ="buttoncentre">Back</a>
 </div>
+<!--------------------------------------BACK-------------------------------------->
+
+<!----------------------------------JAVASCRIPT-------------------------------------->
+<script type="text/javascript" src={% static "js/function.js" %}></script>
+<!----------------------------------JAVASCRIPT-------------------------------------->
+
 </body>
 </html>

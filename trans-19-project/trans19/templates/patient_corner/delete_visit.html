@@ -1,3 +1,50 @@
+{%load static%}
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="{% static 'css/templatestyle.css'%}">
+</head>
+
+<body>
+<!-------------------------------- Navigation Bar div class="menu" -------------------------------->
+<header>
+    <div class="menu">
+      <ul>
+        <li class="logo"><a href="{% url 'home' %}"><img src="{% static 'media/logo_navigation.png' %}" style = "max-width: 100%;" alt ="TRANS-19"></a></li>
+
+        <li class="dropdown">
+          <a href="{% url 'patients' %}" class="dropbtn">Patients</a>
+          <div class="dropdown-content">
+            <a href="{% url 'addpatient' %}" >New Patient</a>
+            <a href="{% url 'patients' %}" >View All Patients</a>
+          </div>
+        </li>
+
+        <li class="dropdown">
+          <a href="{% url 'locations' %}" class="dropbtn">Locations</a>
+          <div class="dropdown-content">
+            <a href="{% url 'addlocation' %}">New Location</a>
+            <a href="{% url 'locations' %}" >View All Location</a>
+          </div>
+        </li>
+
+        <li class="dropdown">
+          <a href="{% url 'searchconnection' %}">Search Connection</a>
+        </li>
+
+        <li class="dropdown" style="float:right; border-left: 1px solid white;  border-right: 0px solid white;  ">
+          <a href="{% url 'locations' %}" class="dropbtn">Hi! <u>User</u></a>
+          <div class="dropdown-content">
+              <a href="#">Profile</a>
+              <a href="#">Logout</a>
+          </div>
+        </li>
+
+      </ul>
+    </div>
+</header>
+<!-------------------------------- Navigation Bar div class="menu" -------------------------------->
+<!-------------------------------- FORM -------------------------------->
 <p> are you sure you want to delete </p>
 {% for visit in visits %}
 <p>{{visit.location}} {{visit.detail}}</p>
@@ -7,3 +54,4 @@
     <button type="submit" name = "delete_entry">DELETE</button>
     <button type="submit" name = "cancel">CANCEL</button>
 </form>
+<!-------------------------------- FORM -------------------------------->
