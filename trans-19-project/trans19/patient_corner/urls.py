@@ -43,6 +43,5 @@ urlpatterns = [
         name = 'searchconnection'),
     path('connections/<str:patient>/year=<int:year>/month=<int:month>/day=<int:day>/<int:Window_day>',
         views.ViewConnections.as_view(),
-        name = 'view_connections'),
-
+        name = 'view_connections')
 ]

@@ -107,7 +107,7 @@ table {
     top: 35%;
     left: 50%;
     margin-right: -50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%)
 }
 
 th {
@@ -144,10 +144,6 @@ td {
     height: 2vw;
 }
 
-mark {
-    color: white;
-    background-color:#2B7A78;
-}
 
 /*-----------------------------Table----------------------------*/
 
@@ -246,3 +242,21 @@ li.dropdown {
 
 
 /*-----------------------------CSS for Navigation Bar----------------------------*/
+
+.container {
+    width:100%;
+    border:1px solid #d3d3d3;
+}
+.container div {
+    width:100%;
+}
+.container .header {
+    background-color:#d3d3d3;
+    padding: 2px;
+    cursor: pointer;
+    font-weight: bold;
+}
+.container .content {
+    display: none;
+    padding : 5px;
+}

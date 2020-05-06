@@ -1,6 +1,6 @@
 from django import forms
 from patient_corner.models import Patient, Location, Visit
-#from django.core.validators import MaxValueValidator, MinValueValidator
+from django.db.models import Count, Min, Sum, Avg
 import datetime
 
 district_name_choices = [
@@ -24,15 +24,14 @@ district_name_choices = [
     ('New Territories YL', 'Yuen Long'),
 ]
 
+#date_choices = []
+
 window_day_choices = [
     (0,0),(1,1),(2,2),(3,3),(4,4),(5,5),(6,6),(7,7),
     (8,8),(9,9),(10,10),(11,11),(12,12),(13,13),(14,14)
 ]
 
 class PatientCreateForm(forms.ModelForm):
-    #first_name = forms.CharField(label='First Name')
-    #last_name = forms.CharField(max_length=15)
-    #Id_doc_num = forms.CharField(max_length=15)
     date_of_birth = forms.DateField(widget = forms.SelectDateWidget(years=range(1940,2021)))
     confirmed_date = forms.DateField(widget = forms.SelectDateWidget(years = range(2019,2021)))
     
@@ -41,10 +40,6 @@ class PatientCreateForm(forms.ModelForm):
         fields = '__all__'
 
 class LocationCreateForm(forms.ModelForm):
-    #location_name = forms.CharField(max_length=50)
-    #address = forms.CharField(max_length=50)
-    #x_coord = forms.BigIntegerField()
-    #y_coord = forms.BigIntegerField()
     district_name = forms.ChoiceField(choices=district_name_choices, required=True )
     
     class Meta:
@@ -65,9 +60,15 @@ class VisitCreateForm(forms.ModelForm):
         self.fields['location'].queryset = Location.objects.all().order_by('location_name')
 
 class SearchConnectionForm(forms.ModelForm):
-    
     date = forms.DateField(widget = forms.SelectDateWidget(years=range(1940,2021)),initial=datetime.date.today)
-    Window_day = forms.ChoiceField(choices=window_day_choices, required=True )
+    #date = forms.ChoiceField(choices=date_choices, required=True)
+    Window_day = forms.ChoiceField(choices=window_day_choices, required=True)
+    
+    def clean_date(self):
+        selected_date = self.cleaned_data['date']
+        if selected_date > datetime.date.today():
+            raise forms.ValidationError("Date cannot be later than today")
+            return super(SearchConnectionForm, self).clean()
 
     class Meta:
         model = Visit
@@ -76,3 +77,6 @@ class SearchConnectionForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['patient'].queryset = Patient.objects.all().order_by('caseId')
+        
+    
+        

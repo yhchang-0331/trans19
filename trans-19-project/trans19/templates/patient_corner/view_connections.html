@@ -1,6 +1,119 @@
 <!--Just to show the query for the visits between the specified dates work -->
+{%load static%}
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="{% static 'css/templatestyle.css'%}">
+</head>
+<body>
+<!-------------------------------- Navigation Bar div class="menu" -------------------------------->
+<header>
+    <div class="menu">
+      <ul>
+        <li class="logo"><a href="{% url 'home' %}"><img src="{% static 'media/logo_navigation.png' %}" style = "max-width: 100%;" alt ="TRANS-19"></a></li>
 
-{% for visit in visits%}
-<p>{{visit.category_name}}</p>
-<p>{{visit.location.address}}</p>
+        <li class="dropdown">
+          <a href="{% url 'patients' %}" class="dropbtn">Patients</a>
+          <div class="dropdown-content">
+            <a href="{% url 'addpatient' %}" >New Patient</a>
+            <a href="{% url 'patients' %}" >View All Patients</a>
+          </div>
+        </li>
+
+        <li class="dropdown">
+          <a href="{% url 'locations' %}" class="dropbtn">Locations</a>
+          <div class="dropdown-content">
+            <a href="{% url 'addlocation' %}">New Location</a>
+            <a href="{% url 'locations' %}" >View All Location</a>
+          </div>
+        </li>
+
+        <li class="dropdown">
+          <a href="{% url 'searchconnection' %}">Search Connection</a>
+        </li>
+
+        <li class="dropdown" style="float:right; border-left: 1px solid white;  border-right: 0px solid white;  ">
+          <a href="{% url 'locations' %}" class="dropbtn">Hi! <u>User</u></a>
+          <div class="dropdown-content">
+              <a href="#">Profile</a>
+              <a href="#">Logout</a>
+          </div>
+        </li>
+
+      </ul>
+    </div>
+</header>
+<!-------------------------------- Navigation Bar div class="menu" -------------------------------->
+
+<!-------------------------------------------HEADING--------------------------------------------->
+<div class="title">
+    <h1 style="text-align:center"> SEARCH CONNECTION </h1>
+</div>
+<!-------------------------------------------HEADING--------------------------------------------->
+
+<!-------------------------------------------HEADING--------------------------------------------->
+<div>
+    <h2 style="text-align:center; margin-top: 2%;"> {{ num_of_distinct_locations }} distinct locations were found in visit data of {{ patient.last_name }}, {{ patient.first_name }} from {{ date_from|date:"Y-m-d" }} to {{ date_to|date:"Y-m-d" }} </h2>
+</div>
+<!-------------------------------------------HEADING--------------------------------------------->
+
+<table style="margin-top: 1%; width: 95%;" id="TABLE">
+    <tr>
+        <th>Case Id</th>
+        <th>Last name</th>
+        <th>First name</th>
+        <th>Location</th>
+        <th>Address</th>
+        <th>Date from</th>
+        <th>Date to</th>
+        <th>Detail</th>
+    </tr>
+{% for visit in selected_visits %}
+    <tr>
+      <td>{{ visit.patient.caseId }}</td>
+      <td>{{ visit.patient.last_name }} </td>
+      <td>{{ visit.patient.first_name }}</td>
+      <td>{{ visit.location.location_name }}</td>
+      <td>{{ visit.location.address }}</td>
+      <td>{{ visit.date_from|date:"Y-m-d" }}</td>
+      <td>{{ visit.date_to|date:"Y-m-d" }}</td>
+      <td>{{ visit.detail }}</td>
+    </tr>
+    {% empty %}
+    <tr>
+      <td colspan="11">No visiting information available.</td>
+    </tr>
 {% endfor %}
+</table>
+
+<table style="margin-top: 18%; width: 95%;" id="TABLE">
+    <tr>
+        <th>Case Id</th>
+        <th>Last name</th>
+        <th>First name</th>
+        <th>Location</th>
+        <th>Address</th>
+        <th>Date from</th>
+        <th>Date to</th>
+        <th>Detail</th>
+    </tr>
+{% for visit in connected_visits %}
+    <tr>
+      <td>{{ visit.patient.caseId }}</td>
+      <td>{{ visit.patient.last_name }} </td>
+      <td>{{ visit.patient.first_name }}</td>
+      <td>{{ visit.location.location_name }}</td>
+      <td>{{ visit.location.address }}</td>
+      <td>{{ visit.date_from|date:"Y-m-d" }}</td>
+      <td>{{ visit.date_to|date:"Y-m-d" }}</td>
+      <td>{{ visit.detail }}</td>
+    </tr>
+    {% empty %}
+    <tr>
+      <td colspan="11">No visiting information available.</td>
+    </tr>
+{% endfor %}
+</table>
+
+</body>
+</html>

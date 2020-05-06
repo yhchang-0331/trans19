@@ -88,8 +88,8 @@
       <td>{{patient.last_name}}</td>
       <td>{{patient.first_name}}</td>
       <td>{{patient.Id_doc_num}}</td>
-      <td>{{patient.date_of_birth}}</td>
-      <td>{{patient.confirmed_date}}</td>
+      <td>{{patient.date_of_birth|date:"Y-m-d"}}</td>
+      <td>{{patient.confirmed_date|date:"Y-m-d"}}</td>
       <td><a href="{% url 'editpatient' patient.caseId %}" class="button">Edit</a></td>
       <td><a href="{% url 'patient_visit' patient.caseId %}" class="button">View</a></td>
       <td><a href="{% url 'addvisit' patient.caseId %}" class="button">Add</a></td>
@@ -107,7 +107,7 @@
 <!--------------------------------------TABLE-------------------------------------->
 
 <!----------------------------------JAVASCRIPT-------------------------------------->
-<script type="text/javascript" src={% static "js/function.js" %}></script>
+<script type="text/javascript" src="{% static 'js/function.js' %}"></script>
 <!----------------------------------JAVASCRIPT-------------------------------------->
 
 </body>
