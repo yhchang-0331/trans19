@@ -45,19 +45,21 @@
 </header>
 <!-------------------------------- Navigation Bar div class="menu" -------------------------------->
 
-<!-------------------------------------------HEADING--------------------------------------------->
+<!-------------------------------------------HEADING---------------------------------------------->
 <div class="title">
     <h1 style="text-align:center"> SEARCH CONNECTION </h1>
 </div>
-<!-------------------------------------------HEADING--------------------------------------------->
+<!-------------------------------------------HEADING---------------------------------------------->
 
-<!-------------------------------------------HEADING--------------------------------------------->
+<!-------------------------------------------HEADING---------------------------------------------->
 <div>
     <h2 style="text-align:center; margin-top: 2%;"> {{ num_of_distinct_locations }} distinct locations were found in visit data of {{ patient.last_name }}, {{ patient.first_name }} from {{ date_from|date:"Y-m-d" }} to {{ date_to|date:"Y-m-d" }} </h2>
 </div>
-<!-------------------------------------------HEADING--------------------------------------------->
+<!-------------------------------------------HEADING---------------------------------------------->
 
-<table style="margin-top: 1%; width: 95%;" id="TABLE">
+
+<!--------------------------------------TABLE-------------------------------------->
+<table style="margin-top: 8%; width: 95%; position: relative;" id="table">
     <tr>
         <th>Case Id</th>
         <th>Last name</th>
@@ -68,11 +70,11 @@
         <th>Date to</th>
         <th>Detail</th>
     </tr>
-{% for visit in selected_visits %}
     <tr>
-      <td>{{ visit.patient.caseId }}</td>
-      <td>{{ visit.patient.last_name }} </td>
-      <td>{{ visit.patient.first_name }}</td>
+      <td rowspan="{{ sv_count }}">{{ patient.caseId }}</td>
+      <td rowspan="{{ sv_count }}">{{ patient.last_name }} </td>
+      <td rowspan="{{ sv_count }}">{{ patient.first_name }}</td>
+    {% for visit in selected_visits %}
       <td>{{ visit.location.location_name }}</td>
       <td>{{ visit.location.address }}</td>
       <td>{{ visit.date_from|date:"Y-m-d" }}</td>
@@ -81,39 +83,71 @@
     </tr>
     {% empty %}
     <tr>
-      <td colspan="11">No visiting information available.</td>
+      <td colspan="8">No visiting information available.</td>
     </tr>
 {% endfor %}
 </table>
 
-<table style="margin-top: 18%; width: 95%;" id="TABLE">
-    <tr>
-        <th>Case Id</th>
-        <th>Last name</th>
-        <th>First name</th>
-        <th>Location</th>
-        <th>Address</th>
-        <th>Date from</th>
-        <th>Date to</th>
-        <th>Detail</th>
-    </tr>
-{% for visit in connected_visits %}
-    <tr>
-      <td>{{ visit.patient.caseId }}</td>
-      <td>{{ visit.patient.last_name }} </td>
-      <td>{{ visit.patient.first_name }}</td>
-      <td>{{ visit.location.location_name }}</td>
-      <td>{{ visit.location.address }}</td>
-      <td>{{ visit.date_from|date:"Y-m-d" }}</td>
-      <td>{{ visit.date_to|date:"Y-m-d" }}</td>
-      <td>{{ visit.detail }}</td>
-    </tr>
-    {% empty %}
-    <tr>
-      <td colspan="11">No visiting information available.</td>
-    </tr>
+
+{% for location in distinct_locations %}
+<div class="container">
+ <div class="header" style = "margin-bottom: 1%;"><span>{{ location.location_name }}</span></div>
+    <div class="content">
+        <table style="width: 95%;">
+            <tr>
+                <th>Case Id</th>
+                <th>Last name</th>
+                <th>First name</th>
+                <th>Location</th>
+                <th>Address</th>
+                <th>Date from</th>
+                <th>Date to</th>
+                <th>Detail</th>
+            </tr>
+        {% for visit in connected_visits %}
+        {% if location.location_name == visit.location.location_name %}
+            <tr>
+                <td>{{ visit.patient.caseId }}</td>
+                <td>{{ visit.patient.last_name }} </td>
+                <td>{{ visit.patient.first_name }}</td>
+                <td>{{ visit.location.location_name }}</td>
+                <td>{{ visit.location.address }}</td>
+                <td>{{ visit.date_from|date:"Y-m-d" }}</td>
+                <td>{{ visit.date_to|date:"Y-m-d" }}</td>
+                <td>{{ visit.detail }}</td>
+            </tr>
+        {% endif %}
+            {% empty %}
+            <tr>
+                <td colspan="8">No visiting information available.</td>
+            </tr>
+        {% endfor %}
+        </table>
+    </div>
+</div>
 {% endfor %}
-</table>
+<!--------------------------------------TABLE-------------------------------------->
+
+<!----------------------------------JAVASCRIPT-------------------------------------->
+
+<script type="text/javascript" src="{% static 'js/jr.js' %}"></script>
+<script>
+	$(document).ready(function() {
+	$('[data-toggle="toggle"]').change(function(){
+		$(this).parents().next('.hide').toggle();
+	});
+});
+
+    $(".header").click(function () {
+    $header = $(this); //getting the next element
+    $content = $header.next(); //open up the content needed - toggle the slide - if visible, slide up, if not slidedown.
+    $content.slideToggle(500, function () {
+
+    });
+});
+</script>
+<!----------------------------------JAVASCRIPT-------------------------------------->
+
 
 </body>
 </html>

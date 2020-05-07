@@ -189,18 +189,19 @@ class ViewConnections(TemplateView):
         date_from = datetime.date(year,month,day)-datetime.timedelta(days=Window_day)
         date_to = datetime.date(year,month,day)+datetime.timedelta(days=Window_day)
         selected_visits = Visit.objects.filter(Q(patient_id = patient_id)&((Q(date_from__gte = date_from)&Q(date_from__lte = date_to))|(Q(date_to__gte = date_from)&Q(date_to__lte = date_to)))).order_by('date_from')
+        sv_count = selected_visits.count()
         location_list = []
         for sv in selected_visits:
             location_list.append(sv.location)
         location_set = set(location_list)
-        count = sum(1 for location in location_set)
+        location_count = sum(1 for location in location_set)
         connected_visits = Visit.objects.filter(((Q(date_from__gte = date_from)&Q(date_from__lte = date_to))|(Q(date_to__gte = date_from)&Q(date_to__lte = date_to)))).exclude(patient_id = patient_id).order_by('date_from')
         result = []
         for cv in connected_visits:
             for sv in selected_visits:
                 if cv.location == sv.location and ((sv.date_from >= cv.date_from and sv.date_from <= cv.date_to) or (sv.date_from >= cv.date_from and sv.date_to <= cv.date_to)):
                     result.append(cv)
-        args = {'patient': patient, 'selected_visits': selected_visits, 'distinct_locations': location_set, 'num_of_distinct_locations': count, 'connected_visits': result, 'date_from': date_from, 'date_to': date_to}
+        args = {'patient': patient, 'distinct_locations': location_set, 'num_of_distinct_locations': location_count, 'sv_count': sv_count, 'selected_visits': selected_visits, 'connected_visits': result, 'date_from': date_from, 'date_to': date_to}
 
         return render(request, self.template_name, args)
 

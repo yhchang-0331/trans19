@@ -243,20 +243,27 @@ li.dropdown {
 
 /*-----------------------------CSS for Navigation Bar----------------------------*/
 
+/*-----------------------------CSS for Expandable Table----------------------------*/
+
 .container {
     width:100%;
-    border:1px solid #d3d3d3;
+    padding-bottom: 3%;
 }
 .container div {
-    width:100%;
+    width: 100%;
 }
 .container .header {
-    background-color:#d3d3d3;
-    padding: 2px;
+    background-color:#80A7A6;
+    padding: 15px;
     cursor: pointer;
     font-weight: bold;
+    text-align: center;
+    position: relative;
 }
 .container .content {
     display: none;
-    padding : 5px;
+    position: relative;
+    padding-top : 4%;
 }
+/*-----------------------------CSS for Expandable Table----------------------------*/
+
