@@ -83,11 +83,14 @@
     </tr>
     {% empty %}
     <tr>
-      <td colspan="8">No visiting information available.</td>
+      <td colspan="5">No visiting information available.</td>
     </tr>
 {% endfor %}
 </table>
 
+<input type="button" id="openall" value="Expand/Collapse all">
+<br>
+<br>
 
 {% for location in distinct_locations %}
 <div class="container">
@@ -132,18 +135,16 @@
 
 <script type="text/javascript" src="{% static 'js/jr.js' %}"></script>
 <script>
-	$(document).ready(function() {
-	$('[data-toggle="toggle"]').change(function(){
-		$(this).parents().next('.hide').toggle();
-	});
-});
-
-    $(".header").click(function () {
+$(".header").click(function () {
     $header = $(this); //getting the next element
     $content = $header.next(); //open up the content needed - toggle the slide - if visible, slide up, if not slidedown.
     $content.slideToggle(500, function () {
 
     });
+});
+
+$('#openall').on('click',function(){
+    $('.header').trigger('click');
 });
 </script>
 <!----------------------------------JAVASCRIPT-------------------------------------->
