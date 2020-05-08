@@ -76,6 +76,18 @@ p {
     margin-top: 15%;
 }
 
+.editform{
+  font-family: 'lato';
+  background-color: #DEF2F1;
+  width: 50vw;
+  text-align: center;
+  padding: 70px 0;
+  margin-left: 25%;
+  margin-right: 25%;
+  margin-top: 7%;
+  margin-bottom: 7%;
+}
+
 
 /*-----------------------------FORM Styling----------------------------*/
 
@@ -101,17 +113,13 @@ mark {
 /*-----------------------------Table----------------------------*/
 
 table {
-    font-family: 'lato';
-    border-collapse: collapse;
-    width: 85%;
-    table-layout: auto;
-    font-size: 1vw;
-    position: absolute;
-    top: 35%;
-    left: 50%;
-    margin-right: -50%;
-    transform: translate(-50%, -50%);
+  font-family: 'lato';
+  border-collapse: collapse;
+  font-size: 1vw;
+  margin-left: auto;
+  margin-right: auto;
 }
+
 
 th {
     font-family: 'lato';
@@ -147,6 +155,9 @@ td {
     height: 2vw;
 }
 
+.edittable{
+  margin-top: 7%;
+}
 
 /*-----------------------------Table----------------------------*/
 
