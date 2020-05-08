@@ -106,6 +106,7 @@
                 <th>Date from</th>
                 <th>Date to</th>
                 <th>Detail</th>
+                <th>Category</th>
             </tr>
         {% for visit in connected_visits %}
         {% if location.location_name == visit.location.location_name %}
@@ -118,7 +119,7 @@
                 <td>{{ visit.date_from|date:"Y-m-d" }}</td>
                 <td>{{ visit.date_to|date:"Y-m-d" }}</td>
                 <td>{{ visit.detail }}</td>
-                <td>{{ visit.category }}</td>
+                <td>{{ visit.category_name }}</td>
             </tr>
         {% endif %}
             {% empty %}
