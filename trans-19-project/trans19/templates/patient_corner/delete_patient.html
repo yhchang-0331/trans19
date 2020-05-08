@@ -49,8 +49,8 @@
 <p> Are you sure you want to delete </p>
 {% for patient in patients %}
 <p>{{patient.first_name}} {{patient.last_name}}</p>
-<strong>WARNING: DELETING PATIENTS WILL ALSO DELETE ALL VISITS ASSOCIATED WITH THE PATIENTS</strong>
 {% endfor %}
+<strong>WARNING: DELETING PATIENTS WILL ALSO DELETE ALL VISITS ASSOCIATED WITH THE PATIENTS</strong>
 <form  method="post">
     {% csrf_token %}
     <button type="submit" name = "delete_entry">DELETE</button>

@@ -69,6 +69,7 @@
         <th>Date from</th>
         <th>Date to</th>
         <th>Detail</th>
+        <th>Category</th>
     </tr>
     <tr>
       <td rowspan="{{ sv_count }}">{{ patient.caseId }}</td>
@@ -80,6 +81,7 @@
       <td>{{ visit.date_from|date:"Y-m-d" }}</td>
       <td>{{ visit.date_to|date:"Y-m-d" }}</td>
       <td>{{ visit.detail }}</td>
+      <td>{{ visit.category_name }}</td>
     </tr>
     {% empty %}
     <tr>
