@@ -53,7 +53,7 @@
 
 <!-------------------------------------------HEADING---------------------------------------------->
 <div>
-    <h2 style="text-align:center; margin-top: 2%;"> {{ num_of_distinct_locations }} distinct locations were found in visit data of {{ patient.last_name }}, {{ patient.first_name }} from {{ date_from|date:"Y-m-d" }} to {{ date_to|date:"Y-m-d" }} </h2>
+    <h2 style="text-align:center; margin-top: 2%;"> {{ sv_count }} visits were found in visit data of {{ patient.last_name }}, {{ patient.first_name }} </h2>
 </div>
 <!-------------------------------------------HEADING---------------------------------------------->
 
@@ -115,6 +115,7 @@
                 <td>{{ visit.date_from|date:"Y-m-d" }}</td>
                 <td>{{ visit.date_to|date:"Y-m-d" }}</td>
                 <td>{{ visit.detail }}</td>
+                <td>{{ visit.category }}</td>
             </tr>
         {% endif %}
             {% empty %}

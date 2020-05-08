@@ -86,7 +86,7 @@
       <td>{{ location.y_coord }}</td>
       <td>{{ location.district_name }}</td>
       <td><a href="{% url 'editlocation' location.pk %}" class = "button">Edit</a></td>
-      <td><input type="checkbox" name="patient_to_be_deleted" value="{{patient.pk}}"></td>
+      <td><input type="checkbox" name="location_to_be_deleted" value="{{location.pk}}"></td>
     </tr>
 
     {% empty %}

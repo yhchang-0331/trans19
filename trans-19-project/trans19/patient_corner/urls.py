@@ -38,10 +38,13 @@ urlpatterns = [
     path('deletevisit/<int:patient>',
         views.DeleteVisit.as_view(),
         name = 'deletevisit'),
+    path('deletelocation',
+        views.DeleteLocation.as_view(),
+        name = 'deletelocation'),
     path('searchconnection',
         views.SearchConnection.as_view(),
         name = 'searchconnection'),
-    path('connections/<str:patient>/year=<int:year>/month=<int:month>/day=<int:day>/<int:Window_day>',
+    path('connections/patientid=<str:patient>/window=<int:Window_day>',
         views.ViewConnections.as_view(),
         name = 'view_connections')
 ]

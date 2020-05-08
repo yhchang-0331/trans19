@@ -46,9 +46,10 @@
 </header>
 <!-------------------------------- Navigation Bar div class="menu" -------------------------------->
 <!-------------------------------- FORM -------------------------------->
-<p> are you sure you want to delete </p>
+<p> Are you sure you want to delete </p>
 {% for patient in patients %}
 <p>{{patient.first_name}} {{patient.last_name}}</p>
+<strong>WARNING: DELETING PATIENTS WILL ALSO DELETE ALL VISITS ASSOCIATED WITH THE PATIENTS</strong>
 {% endfor %}
 <form  method="post">
     {% csrf_token %}

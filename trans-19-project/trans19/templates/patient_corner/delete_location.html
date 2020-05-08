@@ -44,40 +44,15 @@
     </div>
 </header>
 <!-------------------------------- Navigation Bar div class="menu" -------------------------------->
-
-<!-------------------------------------------HEADING--------------------------------------------->
-<div class="title">
-  <h1 style="text-align:center"> CREATE NEW VISIT'S RECORD FOR {{ patient.last_name }} {{ patient.first_name }} </h1>
-</div>
-<!-------------------------------------------HEADING--------------------------------------------->
-
-<!----------------------------------------FORM---------------------------------------->
-<div class="form" style="margin-top: 2%;">
-  <form method="POST" >
+<!-------------------------------- FORM -------------------------------->
+<p> Are you sure you want to delete </p>
+{% for location in locations %}
+<p>{{location.location_name}}</p>
+{% endfor %}
+<strong>WARNING: ALL VISITS ASSOCIATED WITH THESE LOCATIONS WILL ALSO BE DELETED</strong>
+<form  method="post">
     {% csrf_token %}
-    <p>
-      {% for field in form %}
-      <div class="field" style="margin: 3%;">
-        <label for="{{ field.id_for_label }}" class="label" style="margin: 3%;">{{ field.label_tag }}</label>
-        {{ field }}
-      </div>
-      {% endfor %}
-
-      {% for error in form.non_field_errors %}
-          <div class="alert alert-danger">
-              <strong>{{ error|escape }}</strong>
-          </div>
-      {% endfor %}
-
-    </p>
-    <center>
-      <button class="buttoncentre" style="margin-top: 2%; padding-right: 8%;" type="submit">Add</button>
-      <a href="{% url 'patients' %}" style="margin-top: 2%;" class="buttoncentre">Cancel</a>
-    </center>
-  </form>
-</div>
-<!----------------------------------------FORM---------------------------------------->
-
-
-</body>
-</html>
+    <button type="submit" name = "delete_entry">DELETE</button>
+    <button type="submit" name = "cancel">CANCEL</button>
+</form>
+<!-------------------------------- FORM -------------------------------->

@@ -31,7 +31,7 @@
         <li class="dropdown">
           <a href="{% url 'searchconnection' %}">Search Connection</a>
         </li>
-  
+
         <li class="dropdown" style="float:right; border-left: 1px solid white;  border-right: 0px solid white;  ">
           <a href="{% url 'locations' %}" class="dropbtn">Hi! <u>User</u></a>
           <div class="dropdown-content">
@@ -61,6 +61,11 @@
           <label for="{{ field.id_for_label }}" class="label" style="margin: 3%;">{{ field.label_tag }}</label>
           {{ field }}
         </div>
+        {% endfor %}
+        {% for error in form.non_field_errors %}
+            <div class="alert alert-danger">
+                <strong>{{ error|escape }}</strong>
+            </div>
         {% endfor %}
       </p>
       <center>

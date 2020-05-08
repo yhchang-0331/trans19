@@ -89,6 +89,11 @@
         {{ field }}
       </div>
       {% endfor %}
+      {% for error in form.non_field_errors %}
+          <div class="alert alert-danger">
+              <strong>{{ error|escape }}</strong>
+          </div>
+      {% endfor %}
     </p>
     <center>
       <button class="buttoncentre" style="margin-top: 2%; padding-right: 8%;" type="submit">Save</button>
