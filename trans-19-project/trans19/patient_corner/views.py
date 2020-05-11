@@ -7,8 +7,9 @@ from django.urls import reverse_lazy
 import datetime
 from django.db.models import Q
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.mixins import LoginRequiredMixin
 
-class Addpatient(FormView):
+class Addpatient(LoginRequiredMixin,FormView):
     model = Patient
     form_class = PatientCreateForm
     template_name = "patient_corner/add_patient.html"
@@ -26,7 +27,7 @@ class Addpatient(FormView):
             return redirect(reverse_lazy('patients'))
         return render(request,self.template_name,{'form':form})
 
-class Addlocation(FormView):
+class Addlocation(LoginRequiredMixin,FormView):
     model = Location
     form_class = LocationCreateForm
     template_name = "patient_corner/add_location.html"
@@ -44,7 +45,7 @@ class Addlocation(FormView):
             return redirect(reverse_lazy('locations'))
         return render(request,self.template_name,{'form':form})
 
-class Addvisit(FormView):
+class Addvisit(LoginRequiredMixin,FormView):
     model = Visit
     form_class = VisitCreateForm
     template_name = "patient_corner/add_visit.html"
@@ -66,7 +67,7 @@ class Addvisit(FormView):
         return render(request,self.template_name,{'form':form,'patient':patient})
 
 
-class Editpatient(UpdateView):
+class Editpatient(LoginRequiredMixin,UpdateView):
     model = Patient
     form_class = PatientCreateForm
     template_name = "patient_corner/edit_patient.html"
@@ -81,7 +82,7 @@ class Editpatient(UpdateView):
     def form_invalid(self, form):
         return self.render_to_response(self.get_context_data(form=form))
 
-class Editvisit(UpdateView):
+class Editvisit(LoginRequiredMixin,UpdateView):
     model = Visit
     form_class = VisitCreateForm
     template_name = "patient_corner/edit_visit.html"
@@ -99,7 +100,7 @@ class Editvisit(UpdateView):
         patient = visit.patient.caseId
         return reverse_lazy('patient_visit',args=[patient])
 
-class Editlocation(UpdateView):
+class Editlocation(LoginRequiredMixin,UpdateView):
     model = Location
     form_class = LocationCreateForm
     template_name = "patient_corner/edit_location.html"
@@ -114,7 +115,7 @@ class Editlocation(UpdateView):
     def get_success_url(self, *args, **kwargs):
         return reverse_lazy('locations')
 
-class PatientVisitData(TemplateView):
+class PatientVisitData(LoginRequiredMixin,TemplateView):
     template_name = "patient_corner/visit_list.html"
 
     def get_context_data(self, **kwargs):
@@ -130,7 +131,7 @@ class PatientVisitData(TemplateView):
             request.session['visit_to_be_deleted'] = tbd
         return redirect(reverse_lazy('deletevisit',args = [patient]))
 
-class ViewPatients(ListView):
+class ViewPatients(LoginRequiredMixin,ListView):
     template_name = "patient_corner/patient_list.html"
     model = Patient
 
@@ -141,7 +142,7 @@ class ViewPatients(ListView):
         return redirect(reverse_lazy('deletepatient'))
 
 
-class DeletePatient(TemplateView):
+class DeletePatient(LoginRequiredMixin,TemplateView):
     template_name = 'patient_corner/delete_patient.html'
     def get(self,request):
         patient_nos = request.session['patient_to_be_deleted']
@@ -156,7 +157,7 @@ class DeletePatient(TemplateView):
             del request.session['patient_to_be_deleted']
         return redirect(reverse_lazy('patients'))
 
-class DeleteVisit(TemplateView):
+class DeleteVisit(LoginRequiredMixin,TemplateView):
     template_name = 'patient_corner/delete_visit.html'
     def get(self,request,patient):
         visit_nos = request.session['visit_to_be_deleted']
@@ -170,7 +171,7 @@ class DeleteVisit(TemplateView):
             Visit.objects.filter(pk__in=visit_nos).delete()
         return redirect(reverse_lazy('patient_visit',args = [patient]))
 
-class DeleteLocation(TemplateView):
+class DeleteLocation(LoginRequiredMixin,TemplateView):
     template_name = 'patient_corner/delete_location.html'
     def get(self,request):
         location_nos = request.session['location_to_be_deleted']
@@ -185,7 +186,7 @@ class DeleteLocation(TemplateView):
             del request.session['location_to_be_deleted']
         return redirect(reverse_lazy('locations'))
 
-class ViewLocations(ListView):
+class ViewLocations(LoginRequiredMixin,ListView):
     template_name = "patient_corner/location_list.html"
     model = Location
     def post(self,request):
@@ -195,11 +196,11 @@ class ViewLocations(ListView):
         print(request.session['location_to_be_deleted'])
         return redirect(reverse_lazy('deletelocation'))
 
-class Home(ListView):
+class Home(LoginRequiredMixin,ListView):
     template_name = "patient_corner/homepage.html"
     model = Patient # Though we don't need this we must declare else it won't compile
 
-class SearchConnection(FormView):
+class SearchConnection(LoginRequiredMixin,FormView):
     model = Visit
     form_class = SearchConnectionForm
     template_name = "patient_corner/searchconnection.html"
@@ -210,7 +211,7 @@ class SearchConnection(FormView):
         Window_day = request.POST.get('Window_day')
         return redirect(reverse_lazy('view_connections',args = [patient,Window_day]))
 
-class ViewConnections(TemplateView):
+class ViewConnections(LoginRequiredMixin,TemplateView):
     template_name = "patient_corner/view_connections.html"
     def get(self,request,*args,**kwargs):
         patient_id = int(self.kwargs['patient'])

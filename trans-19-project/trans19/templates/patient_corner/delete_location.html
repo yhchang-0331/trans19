@@ -33,10 +33,10 @@
         </li>
 
         <li class="dropdown" style="float:right; border-left: 1px solid white;  border-right: 0px solid white;  ">
-          <a href="{% url 'locations' %}" class="dropbtn">Hi! <u>User</u></a>
+          <a href="{% url 'locations' %}" class="dropbtn">Hi! <u>{{user.username}}</u></a>
           <div class="dropdown-content">
               <a href="#">Profile</a>
-              <a href="#">Logout</a>
+              <a href="{% url 'logout' %}">Logout</a>
           </div>
         </li>
 
@@ -56,3 +56,6 @@
     <button type="submit" name = "cancel">CANCEL</button>
 </form>
 <!-------------------------------- FORM -------------------------------->
+
+</body>
+</html>
