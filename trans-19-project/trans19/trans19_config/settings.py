@@ -67,6 +67,8 @@ TEMPLATES = [
     },
 ]
 
+AUTH_USER_MODEL = 'patient_corner.User'
+
 WSGI_APPLICATION = 'trans19_config.wsgi.application'
 
 
@@ -122,6 +124,7 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
 LOGIN_REDIRECT_URL = '/patient_corner/home'
-#LOGOUT_REDIRECT_URL = '/'
 #MEDIA_URL = '/media/'
 #MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+

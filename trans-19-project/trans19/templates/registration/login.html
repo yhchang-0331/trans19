@@ -1,5 +1,11 @@
 {%load static%}
 <!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" type="text/css" href="{% static 'css/templatestyle.css'%}">
+</head>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -14,15 +20,18 @@
     <p>Hey, you can't access that page.</p>
     {% endif %}
 
+    <div style="margin: 5%;">
     <form method="post" action="{% url 'login' %}">
         {% csrf_token %}
+        <label >Username</label>
+        <div class="input"><input type="text" name="username" required="required"></div>
+        <label >Password</label>
+        <div class="input"><input type="password" name="password" required="required"></div>
 
-        <p>Username: {{ form.username }}</p>
-        <p>Password: {{ form.password }}</p>
-
-        <p><input type="submit" = value="Login"></p>
+        <button class="buttoncentre" style="margin-top: 2%; padding-right: 5%;" type="submit">Login</button>
         <input type="hidden" name="next" value="{{ next }}">
     </form>
+</div>
 
 </body>
 </html>

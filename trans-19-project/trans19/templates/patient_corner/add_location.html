@@ -29,9 +29,11 @@
           </div>
         </li>
 
-        <li class="dropdown">
-          <a href="{% url 'searchconnection' %}">Search Connection</a>
-        </li>
+            {% if user.is_epidemiologist == True %}
+            <li class="dropdown">
+              <a href="{% url 'searchconnection' %}">Search Connection</a>
+            </li>
+            {% endif %}
 
         <li class="dropdown" style="float:right; border-left: 1px solid white;  border-right: 0px solid white;  ">
           <a href="{% url 'locations' %}" class="dropbtn">Hi! <u>{{user.username}}</u></a>

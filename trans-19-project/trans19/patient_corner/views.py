@@ -235,8 +235,6 @@ class ViewConnections(LoginRequiredMixin,TemplateView):
             for v in visit_list:
                 result.append(v)
 
-
-
         '''
         connected_visits = Visit.objects.filter(((Q(date_from__gte = date_from)&Q(date_from__lte = date_to))|(Q(date_to__gte = date_from)&Q(date_to__lte = date_to)))).exclude(patient_id = patient_id).order_by('date_from')
         result = []
@@ -250,8 +248,22 @@ class ViewConnections(LoginRequiredMixin,TemplateView):
 
         return render(request, self.template_name, args)
 
-#def load_dates(request):
-    #patient = request.GET.get('patient')
-    #min_visit_date = Visit.objects.filter(patient_id = patient).annotate(Min('date_from'))
-    #max_visit_date = Visit.objects.filter(patient_id = patient).annotate(Max('date_to'))
-    #return render(request, '', { 'date' : })
+def login(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password =  request.POST['password']
+        post = Account.objects.filter(username=username)
+        if post:
+            username = request.POST['username']
+            request.session['username'] = username
+            return render(request, 'patient_corner/homepage.html', {'user': username})
+        else:
+            return render(request, 'registration/login.html', {})
+    return render(request, 'registration/login.html', {})
+
+def logout(request):
+    try:
+        del request.session['username']
+    except:
+     pass
+    return render(request, 'registration/login.html', {})
