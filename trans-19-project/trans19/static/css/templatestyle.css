@@ -91,6 +91,10 @@ p {
     margin-right: 1.7vw;
 }
 
+mark {	
+    color: white;	
+    background-color:#2B7A78;	
+}
 
 /*-----------------------------Sort and Search----------------------------*/
 
