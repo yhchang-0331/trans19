@@ -8,9 +8,9 @@
 
 @import url(https://fonts.google.com/specimen/Lato?query=lato);
 body {
-    /* 
+    /*
     font-weight: 100;;
-    Thin            100     
+    Thin            100
     Extra Light     200
     Light           300
     Regular         400
@@ -59,6 +59,22 @@ p {
     width: 3vw;
 }
 
+.lowbutton{
+  text-align: center;
+}
+
+.lowbutton .button{
+    padding-left: 0;
+    padding-right: 0;
+    width: 7vw;
+    padding-top: 1vh;
+    padding-bottom: 1vh;
+    margin-right: 1vw;
+    margin-left: 1vw;
+    text-align: center;
+}
+
+
 
 /*-----------------------------General Text/Body Styling----------------------------*/
 
@@ -76,6 +92,18 @@ p {
     margin-top: 15%;
 }
 
+.editform{
+  font-family: 'lato';
+  background-color: #DEF2F1;
+  width: 50vw;
+  text-align: center;
+  padding: 70px 0;
+  margin-left: 25%;
+  margin-right: 25%;
+  margin-top: 7%;
+  margin-bottom: 7%;
+}
+
 
 /*-----------------------------FORM Styling----------------------------*/
 
@@ -91,9 +119,9 @@ p {
     margin-right: 1.7vw;
 }
 
-mark {	
-    color: white;	
-    background-color:#2B7A78;	
+mark {
+    color: white;
+    background-color:#2B7A78;
 }
 
 /*-----------------------------Sort and Search----------------------------*/
@@ -102,16 +130,11 @@ mark {
 /*-----------------------------Table----------------------------*/
 
 table {
-    font-family: 'lato';
-    border-collapse: collapse;
-    width: 85%;
-    table-layout: auto;
-    font-size: 1vw;
-    position: absolute;
-    top: 35%;
-    left: 50%;
-    margin-right: -50%;
-    transform: translate(-50%, -50%)
+  font-family: 'lato';
+  border-collapse: collapse;
+  font-size: 1vw;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 th {
@@ -145,9 +168,14 @@ td {
 }
 
 .tableheading {
-    height: 2vw;
+    height: 4.2vh;
+    width: 10vw;
+    margin-right: 1vh;
 }
 
+.edittable{
+  margin-top: 7%;
+}
 
 /*-----------------------------Table----------------------------*/
 
@@ -244,7 +272,6 @@ li.dropdown {
     display: block;
 }
 
-
 /*-----------------------------CSS for Navigation Bar----------------------------*/
 
 /*-----------------------------CSS for Expandable Table----------------------------*/
@@ -258,11 +285,12 @@ li.dropdown {
 }
 .container .header {
     background-color:#80A7A6;
-    padding: 15px;
+    padding: 15px 0px;
     cursor: pointer;
     font-weight: bold;
     text-align: center;
     position: relative;
+    width: 100%;
 }
 .container .content {
     display: none;
@@ -271,3 +299,12 @@ li.dropdown {
 }
 /*-----------------------------CSS for Expandable Table----------------------------*/
 
+/*-----------------------------CSS for Login----------------------------*/
+
+.loginp{
+  margin-top: 3vh;
+  font-size: 16px;
+  margin-bottom: 1vh;
+}
+
+/*-----------------------------CSS for Login----------------------------*/
