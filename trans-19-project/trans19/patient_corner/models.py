@@ -34,15 +34,18 @@ class Visit(models.Model):
         return self.category_name
 
 class UserManager(BaseUserManager):
-    def create_user(self, email, username, is_epidemiologist, password=None):
+    def create_user(self, email, username, staff_num, is_epidemiologist, password=None):
         if not email:
             raise ValueError("Users must have an email")
         if not username:
             raise ValueError("Users must have a username")
+        if not staff_num:
+            raise ValueError("Users must have a staff number")
         
         user = self.model(
             email=self.normalize_email(email),
             username=username,
+            staff_num=staff_num,
             is_epidemiologist=is_epidemiologist,
         )
 
@@ -50,11 +53,12 @@ class UserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, email, username, is_epidemiologist, password):
+    def create_superuser(self, email, username, staff_num, is_epidemiologist, password):
         user = self.create_user(
             email=self.normalize_email(email),
             username=username,
             password=password,
+            staff_num=staff_num,
             is_epidemiologist=is_epidemiologist,          
         )
         user.is_admin=True
@@ -69,6 +73,7 @@ class User(AbstractBaseUser):
     username = models.CharField(verbose_name="username", max_length=20, unique=True)
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
+    staff_num = models.CharField(verbose_name="staff number",max_length=30, unique=True)
     date_joined = models.DateTimeField(verbose_name="date joined", auto_now_add=True)
     last_login = models.DateTimeField(verbose_name="last login", auto_now=True)
     is_admin = models.BooleanField(default=False)
@@ -77,7 +82,7 @@ class User(AbstractBaseUser):
     is_superuser = models.BooleanField(default=False)
 
     USERNAME_FIELD = 'username'
-    REQUIRED_FIELDS = ['email', 'is_epidemiologist']
+    REQUIRED_FIELDS = ['email', 'staff_num','is_epidemiologist']
 
     objects = UserManager()
 

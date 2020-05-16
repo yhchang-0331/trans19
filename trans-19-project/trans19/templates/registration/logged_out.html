@@ -1,16 +1,24 @@
 {%load static%}
+<!DOCTYPE html> 
+<html>
 
-<html lang="en" dir="ltr">
-  <head>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/templatestyle.css'%}">
-    <title>logout</title>
-  </head>
-  <body>
-  <div class="form">
-    {% block content %}
-      <p style = "margin-bottom: 5vh;">Logged out!</p>
-      <a href="{% url 'login'%}">Click here to login again.</a>
-    {% endblock %}
-  </div>
-  </body>
+<head>
+  <link rel="stylesheet" type="text/css" href="{% static 'css/templatestyle.css'%}">
+</head>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<body>
+
+{% block content %}
+<div style="margin: 5%;">
+  <p>Logged out!</p>
+  <a href="{% url 'login'%}"><button class="buttoncentre" style="margin-top: 2%; padding-right: 4%;">Login again</button></a>
+</div>
+{% endblock %}
+
+</body>
 </html>

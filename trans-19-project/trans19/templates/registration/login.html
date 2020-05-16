@@ -1,5 +1,5 @@
 {%load static%}
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html>
 
 <head>
@@ -12,39 +12,26 @@
     <title>Login</title>
 </head>
 <body>
-  <!-------------------------------- Navigation Bar div class="menu" -------------------------------->
-  <header>
-      <div class="menu">
-        <ul>
-          <li class="logo"><a href="{% url 'home' %}"><img src="{% static 'media/logo_navigation.png' %}" style = "max-width: 100%;" alt ="TRANS-19"></a></li>
-        </ul>
-      </div>
-  </header>
-  <!-------------------------------- Navigation Bar div class="menu" -------------------------------->
+    {% if form.errors %}
+    <p>There's something wrong with what you entered!</p>
+    {% endif %}
 
-    <div>
-      <form class="form" style="padding: 50px 0; margin-top: 8%;" method="post" action="{% url 'login' %}">
-          {% csrf_token %}
-          <p style="margin-bottom: 6vh;">Log in to your account:</p>
-          <p class="loginp">Username</p>
-          <div class="input"><input type="text" name="username" required="required" style="width: 12vw;"></div>
-          <p class="loginp">Password</p>
-          <div class="input"><input type="password" name="password" required="required" style="margin-bottom: 5vh;width: 12vw;"></div>
-          <div class="lowbutton">
-            <button class="button" type="submit">Login</button>
-          </div>
-          <div class="container">
-            {% if form.errors %}
-            <p class="loginp">*There's something wrong with what you entered!</p>
-            {% endif %}
+    {% if next %}
+    <p>Hey, you can't access that page.</p>
+    {% endif %}
 
-            {% if next %}
-            <p>Hey, you can't access that page.</p>
-            {% endif %}
-          </div>
+    <div style="margin: 5%;">
+    <form method="post" action="{% url 'login' %}">
+        {% csrf_token %}
+        <label >Username</label>
+        <div class="input"><input type="text" name="username" required="required"></div>
+        <label >Password</label>
+        <div class="input"><input type="password" name="password" required="required"></div>
 
-          <input type="hidden" name="next" value="{{ next }}">
-      </form>
-    </div>
+        <button class="buttoncentre" style="margin-top: 2%; padding-right: 5%;" type="submit">Login</button>
+        <input type="hidden" name="next" value="{{ next }}">
+    </form>
+</div>
+
 </body>
 </html>

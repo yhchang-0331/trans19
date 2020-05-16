@@ -7,8 +7,8 @@ from django.urls import reverse_lazy
 import datetime
 from django.db.models import Q
 from django.views.decorators.csrf import csrf_exempt
-from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.core.exceptions import PermissionDenied
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.hashers import check_password
 
 class Addpatient(LoginRequiredMixin,FormView):
     model = Patient
@@ -201,8 +201,7 @@ class Home(LoginRequiredMixin,ListView):
     template_name = "patient_corner/homepage.html"
     model = Patient # Though we don't need this we must declare else it won't compile
 
-
-class SearchConnection(UserPassesTestMixin,LoginRequiredMixin,FormView):
+class SearchConnection(LoginRequiredMixin,FormView):
     model = Visit
     form_class = SearchConnectionForm
     template_name = "patient_corner/searchconnection.html"
@@ -222,7 +221,7 @@ class SearchConnection(UserPassesTestMixin,LoginRequiredMixin,FormView):
         Window_day = request.POST.get('Window_day')
         return redirect(reverse_lazy('view_connections',args = [patient,Window_day]))
 
-class ViewConnections(UserPassesTestMixin,LoginRequiredMixin,TemplateView):
+class ViewConnections(LoginRequiredMixin,TemplateView):
     template_name = "patient_corner/view_connections.html"
     permission_denied_message = 'You cannot access this page. Please contact admin for more information.'
     raise_exception = True
@@ -268,23 +267,3 @@ class ViewConnections(UserPassesTestMixin,LoginRequiredMixin,TemplateView):
         args = {'patient': patient, 'distinct_locations': location_set, 'num_of_distinct_locations': location_count, 'sv_count': sv_count, 'selected_visits': selected_visits, 'connected_visits': result}
 
         return render(request, self.template_name, args)
-
-def login(request):
-    if request.method == 'POST':
-        username = request.POST['username']
-        password =  request.POST['password']
-        post = Account.objects.filter(username=username)
-        if post:
-            username = request.POST['username']
-            request.session['username'] = username
-            return render(request, 'patient_corner/homepage.html', {'user': username})
-        else:
-            return render(request, 'registration/login.html', {})
-    return render(request, 'registration/login.html', {})
-
-def logout(request):
-    try:
-        del request.session['username']
-    except:
-     pass
-    return render(request, 'registration/login.html', {})
