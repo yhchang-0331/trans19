@@ -97,10 +97,10 @@
           </div>
       {% endfor %}
     </p>
-    <center>
-      <button class="buttoncentre" style="margin-top: 2%; padding-right: 8%;" type="submit">Save</button>
-      <a href="{% url 'patient_visit' visit.patient.caseId %}" style="margin-top: 2%;" class="buttoncentre">Cancel</a>
-    </center>
+    <div class="lowbutton">
+      <button class="button" type="submit">Save</button>
+      <a href="{% url 'patient_visit' visit.patient.caseId %}" style="margin-top: 2%;" class="button">Cancel</a>
+    </div>
   </form>
 </div>
 <!----------------------------------------FORM---------------------------------------->
