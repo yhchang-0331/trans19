@@ -7,7 +7,7 @@ from django.urls import reverse_lazy
 import datetime
 from django.db.models import Q
 from django.views.decorators.csrf import csrf_exempt
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin,UserPassesTestMixin
 from django.contrib.auth.hashers import check_password
 
 class Addpatient(LoginRequiredMixin,FormView):
@@ -201,7 +201,7 @@ class Home(LoginRequiredMixin,ListView):
     template_name = "patient_corner/homepage.html"
     model = Patient # Though we don't need this we must declare else it won't compile
 
-class SearchConnection(LoginRequiredMixin,FormView):
+class SearchConnection(UserPassesTestMixin,LoginRequiredMixin,FormView):
     model = Visit
     form_class = SearchConnectionForm
     template_name = "patient_corner/searchconnection.html"
@@ -221,7 +221,7 @@ class SearchConnection(LoginRequiredMixin,FormView):
         Window_day = request.POST.get('Window_day')
         return redirect(reverse_lazy('view_connections',args = [patient,Window_day]))
 
-class ViewConnections(LoginRequiredMixin,TemplateView):
+class ViewConnections(UserPassesTestMixin,LoginRequiredMixin,TemplateView):
     template_name = "patient_corner/view_connections.html"
     permission_denied_message = 'You cannot access this page. Please contact admin for more information.'
     raise_exception = True
