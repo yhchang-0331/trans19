@@ -13,7 +13,6 @@
         <div class="menu">
           <ul>
             <li class="logo"><a href="{% url 'home' %}"><img src="{% static 'media/logo_navigation.png' %}" style = "max-width: 100%;" alt ="TRANS-19"></a></li>
-
             <li class="dropdown">
               <a href="{% url 'patients' %}" class="dropbtn">Patients</a>
               <div class="dropdown-content">
@@ -130,6 +129,13 @@
                         </a>
                     </div>
                 </div>
+
+                {% if user.is_epidemiologist == False %}
+                <div class="columns">
+                    <div class="container"></div>
+                </div>
+                {% endif %}
+
             </div>
             <!--FLEXBOX-->
         </div>
