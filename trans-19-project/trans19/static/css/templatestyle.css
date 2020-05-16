@@ -142,6 +142,7 @@ th {
     background-color: #DEF2F1;
     border: 1px solid black;
     font-size: 1vw;
+    padding:8px 0;
 }
 
 td {
@@ -149,7 +150,7 @@ td {
     border: 1px solid black;
     table-layout: auto;
     text-align: center;
-    padding: 8px;
+    padding: 8px 0;
     font-size: 1vw;
 }
 
@@ -175,6 +176,7 @@ td {
 
 .edittable{
   margin-top: 7%;
+  width: 80%;
 }
 
 /*-----------------------------Table----------------------------*/
@@ -300,11 +302,9 @@ li.dropdown {
 /*-----------------------------CSS for Expandable Table----------------------------*/
 
 /*-----------------------------CSS for Login----------------------------*/
-
 .loginp{
   margin-top: 3vh;
   font-size: 16px;
   margin-bottom: 1vh;
 }
-
 /*-----------------------------CSS for Login----------------------------*/
