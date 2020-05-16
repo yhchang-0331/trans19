@@ -9,6 +9,7 @@ from django.db.models import Q
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.mixins import LoginRequiredMixin,UserPassesTestMixin
 from django.contrib.auth.hashers import check_password
+from django.core.exceptions import PermissionDenied
 
 class Addpatient(LoginRequiredMixin,FormView):
     model = Patient
