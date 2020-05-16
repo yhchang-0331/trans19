@@ -1,0 +1,6 @@
+{% if exception %}
+  <p>{{ exception }}</p>
+  <a href="{% url 'home' %}" >Click here to go back to home</a>
+{% else %}
+  <p>403 error</p>
+{% endif %}

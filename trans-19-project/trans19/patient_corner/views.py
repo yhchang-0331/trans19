@@ -7,7 +7,8 @@ from django.urls import reverse_lazy
 import datetime
 from django.db.models import Q
 from django.views.decorators.csrf import csrf_exempt
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.core.exceptions import PermissionDenied
 
 class Addpatient(LoginRequiredMixin,FormView):
     model = Patient
@@ -200,10 +201,20 @@ class Home(LoginRequiredMixin,ListView):
     template_name = "patient_corner/homepage.html"
     model = Patient # Though we don't need this we must declare else it won't compile
 
-class SearchConnection(LoginRequiredMixin,FormView):
+
+class SearchConnection(UserPassesTestMixin,LoginRequiredMixin,FormView):
     model = Visit
     form_class = SearchConnectionForm
     template_name = "patient_corner/searchconnection.html"
+    permission_denied_message = 'You cannot access this page. Please contact admin for more information.'
+    raise_exception = True
+
+    def handle_no_permission(self):
+        if self.raise_exception:
+            raise PermissionDenied(self.permission_denied_message)
+
+    def test_func(self):
+        return self.request.user.is_epidemiologist == True
 
     def post(self,request,**kwargs):
         form = SearchConnectionForm(request.POST)
@@ -211,8 +222,18 @@ class SearchConnection(LoginRequiredMixin,FormView):
         Window_day = request.POST.get('Window_day')
         return redirect(reverse_lazy('view_connections',args = [patient,Window_day]))
 
-class ViewConnections(LoginRequiredMixin,TemplateView):
+class ViewConnections(UserPassesTestMixin,LoginRequiredMixin,TemplateView):
     template_name = "patient_corner/view_connections.html"
+    permission_denied_message = 'You cannot access this page. Please contact admin for more information.'
+    raise_exception = True
+
+    def handle_no_permission(self):
+        if self.raise_exception:
+            raise PermissionDenied(self.permission_denied_message)
+
+    def test_func(self):
+        return self.request.user.is_epidemiologist == True
+
     def get(self,request,*args,**kwargs):
         patient_id = int(self.kwargs['patient'])
         patient = Patient.objects.get(pk = self.kwargs['patient'])
