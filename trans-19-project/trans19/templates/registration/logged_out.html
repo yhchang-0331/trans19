@@ -1,4 +1,16 @@
-{% block content %}
-  <p>Logged out!</p>
-  <a href="{% url 'login'%}">Click here to login again.</a>
-{% endblock %}
+{%load static%}
+
+<html lang="en" dir="ltr">
+  <head>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/templatestyle.css'%}">
+    <title>logout</title>
+  </head>
+  <body>
+  <div class="form">
+    {% block content %}
+      <p style = "margin-bottom: 5vh;">Logged out!</p>
+      <a href="{% url 'login'%}">Click here to login again.</a>
+    {% endblock %}
+  </div>
+  </body>
+</html>
